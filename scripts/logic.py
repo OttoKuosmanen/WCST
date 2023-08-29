@@ -1,3 +1,5 @@
+import random
+
 # Creating card variables
 number = [1,2,3,4]
 shape = ["circle","square","triange","star"]
@@ -25,8 +27,13 @@ def construct_deck(number,shape,color):
 # Running sequence
 deck = construct_deck(number,shape,color)
 
+random.shuffle(deck)
 
+deck.pop()
 
 # Visualization
 for card in deck:
-    print(card.number,card.shape,card.color)
+    print(card,card.number,card.shape,card.color)
+
+
+
