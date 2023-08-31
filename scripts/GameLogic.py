@@ -47,16 +47,29 @@ active_rule = random.choice(rule)
 def feedback(active_rule,choice):
     return getattr(stimulus_card[choice], active_rule) == getattr(a_card, active_rule)
 
-def streak(winning_streak, win):
-     if win:
-         winning_streak = winning_streak +1
+def update_streak(win):
+    global winning_streak
+    if win:
+         winning_streak += 1
          print(winning_streak)
          return winning_streak
-     else:
+    else:
          winning_streak = 0
          print(winning_streak)
          return winning_streak
 
+def change_rule():
+    global winning_streak
+    global active_rule
+    new_rule = []
+    if winning_streak >= 5:
+        new_rule = random.choice(rule)
+        while new_rule == active_rule:
+            new_rule = random.choice(rule)
+        active_rule = new_rule
+        winning_streak = 0
+        print(active_rule)
+        
 
 #GameLoop
 while deck_active:
@@ -68,7 +81,9 @@ while deck_active:
     print(f'3:{stimulus_card[3].number,stimulus_card[3].shape,stimulus_card[3].color}')
     choice = int(input("Type 0,1,2,3 to choose where to group your card"))
     win = feedback(active_rule,choice)
-    winning_streak = streak(winning_streak,win)
+    update_streak(win)
+    change_rule()
+    print("____________________________________________________________________________________")
 
 
 
