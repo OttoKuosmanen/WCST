@@ -1,4 +1,3 @@
-
 import random
 
 
@@ -34,11 +33,12 @@ stimulus_card = [
 ]
                
                 
-
+# Deck
 deck = construct_deck(number,shape,color)
 deck_active = deck.copy()
 random.shuffle(deck_active)
 
+#Rules
 rule = ['number','shape','color']
 active_rule = random.choice(rule)
 
@@ -51,11 +51,11 @@ def update_streak(win):
     global winning_streak
     if win:
          winning_streak += 1
-         print(winning_streak)
+         print(f"Streak:{winning_streak}\n")
          return winning_streak
     else:
          winning_streak = 0
-         print(winning_streak)
+         print(f"Streak:{winning_streak}\n")
          return winning_streak
 
 def change_rule():
@@ -79,7 +79,7 @@ while deck_active:
     print(f'1:{stimulus_card[1].number,stimulus_card[1].shape,stimulus_card[1].color}')
     print(f'2:{stimulus_card[2].number,stimulus_card[2].shape,stimulus_card[2].color}')
     print(f'3:{stimulus_card[3].number,stimulus_card[3].shape,stimulus_card[3].color}')
-    choice = int(input("Type 0,1,2,3 to choose where to group your card"))
+    choice = int(input("Type 0,1,2,3 to choose where to group your card: "))
     win = feedback(active_rule,choice)
     update_streak(win)
     change_rule()
