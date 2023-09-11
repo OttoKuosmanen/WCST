@@ -23,10 +23,10 @@ class Stack():
         self.list_of_cards.append(new_card)
     
     def give(self):
-        return self.list_of_cards.pop(0)
+        return self.list_of_cards.pop()
     
     def render(self):
-        print(self.list_of_cards[0].shape,self.list_of_cards[0].number,self.list_of_cards[0].color)
+        print(self.list_of_cards[-1].shape,self.list_of_cards[-1].number,self.list_of_cards[-1].color)
         
 
 def construct_deck(number,shape,color):
@@ -57,7 +57,6 @@ rule = ['number','shape','color']
 active_rule = random.choice(rule)
 
 #Make stacks
-
 stack_hand = Stack(deck_active,1)
 stack_1 = Stack([stimulus_card[0]], 2)
 stack_2 = Stack([stimulus_card[1]], 3)
@@ -71,7 +70,7 @@ d_stack4= Stack([],6)
 
 
 def feedback(active_rule,choice):
-    return getattr(stimulus_card[choice], active_rule) == getattr(stack_hand.list_of_cards[0], active_rule)
+    return getattr(stimulus_card[choice], active_rule) == getattr(stack_hand.list_of_cards[-1], active_rule)
 
 def update_streak(win):
     global winning_streak
@@ -106,6 +105,16 @@ def user_input():
                 print("Please enter a valid choice (1, 2, 3, or 4).")
         except ValueError:
             print("Please enter a valid choice (1, 2, 3, or 4).")
+            
+def place_card(choice):
+    if choice == 0:
+        stack_1.get(stack_hand.give())
+    elif choice == 1:
+        stack_2.get(stack_hand.give())
+    elif choice == 2:
+        stack_3.get(stack_hand.give())
+    elif choice == 3:
+        stack_4.get(stack_hand.give())
 
 
 #GameLoop
@@ -119,9 +128,12 @@ while deck_active:
     stack_4.render()
     choice = user_input()
     win = feedback(active_rule,choice)
+    place_card(choice)
     update_streak(win)
     change_rule()
     print("____________________________________________________________________")
+
+print("Game Over")
 
 
  
