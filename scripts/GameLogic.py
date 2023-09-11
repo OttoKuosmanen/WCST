@@ -12,8 +12,15 @@ class Card:
         self.number = number
         self.shape = shape
         self.color = color
-
-
+        
+    def draw(self):
+        print(self.shape,self.number,self.color)
+            
+class Stack(Card):
+    def __init__(self,list_of_cards,pos):
+        self.list_of_cards = list_of_cards
+        self.pos = pos
+        
 
 def construct_deck(number,shape,color):
     deck = []
@@ -42,6 +49,18 @@ random.shuffle(deck_active)
 rule = ['number','shape','color']
 active_rule = random.choice(rule)
 
+#Make stacks
+
+stack_hand = Stack(deck_active,1)
+stack_1 = Stack(stimulus_card[0],2)
+stack_2 = Stack(stimulus_card[1],3)
+stack_3 = Stack(stimulus_card[2],4)
+stack_4 = Stack(stimulus_card[3],5)
+d_stack1= Stack([],6)
+d_stack2= Stack([],6)
+d_stack3= Stack([],6)
+d_stack4= Stack([],6)
+
 
 
 def feedback(active_rule,choice):
@@ -69,17 +88,31 @@ def change_rule():
         active_rule = new_rule
         winning_streak = 0
         print(active_rule)
-        
+
+def user_input():
+    while True:
+        try:
+            c = int(input("Type 1, 2, 3, or 4 to choose where to group your card: "))
+            if c in [1, 2, 3, 4]:
+                return c - 1
+            else:
+                print("Please enter a valid choice (1, 2, 3, or 4).")
+        except ValueError:
+            print("Please enter a valid choice (1, 2, 3, or 4).")
+
 
 #GameLoop
 while deck_active:
     a_card = deck_active.pop()
-    print(f'This is the card you have in hand:{a_card.shape},{a_card.number},{a_card.color}')
-    print(f'0:{stimulus_card[0].number,stimulus_card[0].shape,stimulus_card[0].color}')
-    print(f'1:{stimulus_card[1].number,stimulus_card[1].shape,stimulus_card[1].color}')
-    print(f'2:{stimulus_card[2].number,stimulus_card[2].shape,stimulus_card[2].color}')
-    print(f'3:{stimulus_card[3].number,stimulus_card[3].shape,stimulus_card[3].color}')
-    choice = int(input("Type 0,1,2,3 to choose where to group your card: "))
+    print("----HAND----")
+    a_card.draw()
+    print("##############")
+    stimulus_card[0].draw()
+    stimulus_card[1].draw()
+    stimulus_card[2].draw()
+    stimulus_card[3].draw()
+    
+    choice = user_input()
     win = feedback(active_rule,choice)
     update_streak(win)
     change_rule()
