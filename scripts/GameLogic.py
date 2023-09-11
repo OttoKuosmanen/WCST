@@ -24,7 +24,7 @@ class Stack(Card):
     def get(self,new_card):
         self.list_of_cards.append(new_card)
     
-    def give(self,card):
+    def give(self):
         return self.list_of_cards.pop()
         
 
@@ -109,7 +109,7 @@ def user_input():
 
 #GameLoop
 while deck_active:
-    a_card = deck_active.pop()
+    a_card = stack_hand.give()
     print("----HAND----")
     a_card.render()
     print("##############")
