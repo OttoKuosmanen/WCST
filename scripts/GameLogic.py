@@ -13,10 +13,8 @@ class Card:
         self.shape = shape
         self.color = color
         
-    def render(self):
-        print(self.shape,self.number,self.color)
             
-class Stack(Card):
+class Stack():
     def __init__(self,list_of_cards,pos):
         self.list_of_cards = list_of_cards
         self.pos = pos
@@ -25,7 +23,10 @@ class Stack(Card):
         self.list_of_cards.append(new_card)
     
     def give(self):
-        return self.list_of_cards.pop()
+        return self.list_of_cards.pop(0)
+    
+    def render(self):
+        print(self.list_of_cards[0].shape,self.list_of_cards[0].number,self.list_of_cards[0].color)
         
 
 def construct_deck(number,shape,color):
@@ -58,10 +59,10 @@ active_rule = random.choice(rule)
 #Make stacks
 
 stack_hand = Stack(deck_active,1)
-stack_1 = Stack(stimulus_card[0],2)
-stack_2 = Stack(stimulus_card[1],3)
-stack_3 = Stack(stimulus_card[2],4)
-stack_4 = Stack(stimulus_card[3],5)
+stack_1 = Stack([stimulus_card[0]], 2)
+stack_2 = Stack([stimulus_card[1]], 3)
+stack_3 = Stack([stimulus_card[2]], 4)
+stack_4 = Stack([stimulus_card[3]], 5)
 d_stack1= Stack([],6)
 d_stack2= Stack([],6)
 d_stack3= Stack([],6)
@@ -70,7 +71,7 @@ d_stack4= Stack([],6)
 
 
 def feedback(active_rule,choice):
-    return getattr(stimulus_card[choice], active_rule) == getattr(a_card, active_rule)
+    return getattr(stimulus_card[choice], active_rule) == getattr(stack_hand.list_of_cards[0], active_rule)
 
 def update_streak(win):
     global winning_streak
@@ -109,21 +110,18 @@ def user_input():
 
 #GameLoop
 while deck_active:
-    a_card = stack_hand.give()
     print("----HAND----")
-    a_card.render()
+    stack_hand.render()
     print("##############")
-    stimulus_card[0].render()
-    stimulus_card[1].render()
-    stimulus_card[2].render()
-    stimulus_card[3].render()
-    
+    stack_1.render()
+    stack_2.render()
+    stack_3.render()
+    stack_4.render()
     choice = user_input()
     win = feedback(active_rule,choice)
     update_streak(win)
     change_rule()
     print("____________________________________________________________________")
-
 
 
  
