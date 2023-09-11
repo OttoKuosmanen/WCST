@@ -11,5 +11,5 @@ circle = Image.open(circle)
 #square = Image.open(square)
 #triangle = Image.open(triangle)
 
-
+circle.show()
 

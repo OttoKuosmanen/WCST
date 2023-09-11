@@ -63,9 +63,9 @@ stack_2 = Stack([stimulus_card[1]], 3)
 stack_3 = Stack([stimulus_card[2]], 4)
 stack_4 = Stack([stimulus_card[3]], 5)
 d_stack1= Stack([],6)
-d_stack2= Stack([],6)
-d_stack3= Stack([],6)
-d_stack4= Stack([],6)
+d_stack2= Stack([],7)
+d_stack3= Stack([],8)
+d_stack4= Stack([],9)
 
 
 
@@ -105,7 +105,8 @@ def user_input():
                 print("Please enter a valid choice (1, 2, 3, or 4).")
         except ValueError:
             print("Please enter a valid choice (1, 2, 3, or 4).")
-            
+ 
+# Change destination of card to discard pile, when visual adding visuals.            
 def place_card(choice):
     if choice == 0:
         stack_1.get(stack_hand.give())
