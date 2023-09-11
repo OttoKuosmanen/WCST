@@ -13,13 +13,19 @@ class Card:
         self.shape = shape
         self.color = color
         
-    def draw(self):
+    def render(self):
         print(self.shape,self.number,self.color)
             
 class Stack(Card):
     def __init__(self,list_of_cards,pos):
         self.list_of_cards = list_of_cards
         self.pos = pos
+        
+    def get(self,new_card):
+        self.list_of_cards.append(new_card)
+    
+    def give(self,card):
+        return self.list_of_cards.pop()
         
 
 def construct_deck(number,shape,color):
@@ -105,18 +111,18 @@ def user_input():
 while deck_active:
     a_card = deck_active.pop()
     print("----HAND----")
-    a_card.draw()
+    a_card.render()
     print("##############")
-    stimulus_card[0].draw()
-    stimulus_card[1].draw()
-    stimulus_card[2].draw()
-    stimulus_card[3].draw()
+    stimulus_card[0].render()
+    stimulus_card[1].render()
+    stimulus_card[2].render()
+    stimulus_card[3].render()
     
     choice = user_input()
     win = feedback(active_rule,choice)
     update_streak(win)
     change_rule()
-    print("____________________________________________________________________________________")
+    print("____________________________________________________________________")
 
 
 
