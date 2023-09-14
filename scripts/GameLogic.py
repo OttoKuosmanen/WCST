@@ -67,6 +67,8 @@ d_stack2= Stack([],7)
 d_stack3= Stack([],8)
 d_stack4= Stack([],9)
 
+stim = [stack_1,stack_2,stack_3,stack_4]
+discard = [d_stack1,d_stack2,d_stack3,d_stack4]
 
 
 def feedback(active_rule,choice):
@@ -105,28 +107,22 @@ def user_input():
                 print("Please enter a valid choice (1, 2, 3, or 4).")
         except ValueError:
             print("Please enter a valid choice (1, 2, 3, or 4).")
+            
  
 # Change destination of card to discard pile, when visual adding visuals.            
 def place_card(choice):
-    if choice == 0:
-        stack_1.get(stack_hand.give())
-    elif choice == 1:
-        stack_2.get(stack_hand.give())
-    elif choice == 2:
-        stack_3.get(stack_hand.give())
-    elif choice == 3:
-        stack_4.get(stack_hand.give())
+    stim[choice].get(stack_hand.give())
 
-
-#GameLoop
-while deck_active:
+def visuals():
     print("----HAND----")
     stack_hand.render()
     print("##############")
-    stack_1.render()
-    stack_2.render()
-    stack_3.render()
-    stack_4.render()
+    for stack in stim:
+                stack.render()
+
+#GameLoop
+while deck_active:
+    visuals()
     choice = user_input()
     win = feedback(active_rule,choice)
     place_card(choice)
