@@ -132,5 +132,10 @@ while deck_active:
 
 print("Game Over")
 
+# player input id.
+# Function that records results.
+# Data type> I want to make a list of tuples. Or dictionary. 
+# That stores if the answer was correct. What rule was in play.
+# Either what was the player card and what was the chosen stim card.
 
  
