@@ -75,17 +75,19 @@ discard = [d_stack1,d_stack2,d_stack3,d_stack4]
 def feedback(active_rule,choice):
     return getattr(stimulus_card[choice], active_rule) == getattr(stack_hand.list_of_cards[-1], active_rule)
 
-def update_streak(win):
+def update_streak(win,choice):
     global winning_streak
     global logger
     if win:
          winning_streak += 1
-         logger.append((1,active_rule,winning_streak))
+         used_rule = matched_rule(choice)
+         logger.append((1,used_rule,active_rule,winning_streak))
          print(f"Streak:{winning_streak}\n")
          return winning_streak
     else:
          winning_streak = 0
-         logger.append((0,active_rule,winning_streak))
+         used_rule = matched_rule(choice)
+         logger.append((0,used_rule,active_rule,winning_streak))
          print(f"Streak:{winning_streak}\n")
          return winning_streak
 
@@ -93,7 +95,7 @@ def change_rule():
     global winning_streak
     global active_rule
     new_rule = []
-    if winning_streak >= 5:
+    if winning_streak == 5:
         new_rule = random.choice(rule)
         while new_rule == active_rule:
             new_rule = random.choice(rule)
@@ -133,14 +135,23 @@ def results():
             matched_rules += r
             return matched_rules
 """        
+def matched_rule(choice):
+    matched = ""
+    if stack_hand.list_of_cards[-1].color == stimulus_card[choice].color:
+        matched += "color"
+    if stack_hand.list_of_cards[-1].shape == stimulus_card[choice].shape:
+        matched += "shape"
+    if stack_hand.list_of_cards[-1].number == stimulus_card[choice].number:
+        matched += "number"
+    return matched
 
 #GameLoop
 while deck_active:
     visuals()
     choice = user_input()
     win = feedback(active_rule,choice)
+    update_streak(win,choice)
     place_card(choice)
-    update_streak(win)
     change_rule()
     print("____________________________________________________________________")
 
