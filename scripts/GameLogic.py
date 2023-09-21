@@ -1,5 +1,8 @@
 import random
+import csv
 
+
+filename = "../results/data.csv"
 
 number = [1,2,3,4]
 shape = ["circle","square","triangle","star"]
@@ -115,8 +118,7 @@ def user_input():
             print("Please enter a valid choice (1, 2, 3, or 4).")
             
 
-    
-# Change destination of card to discard pile, when visual adding visuals.            
+             
 def place_card(choice):
     discard[choice].get(stack_hand.give())
 
@@ -126,15 +128,8 @@ def visuals():
     print("##############")
     for stack in stim:
                 stack.render()
-"""
-def results():
-    global rule
-    matched_rules = ""
-    for r in rule:
-        if(feedback(r, choice)):
-            matched_rules += r
-            return matched_rules
-"""        
+     
+   
 def matched_rule(choice):
     matched = ""
     if stack_hand.list_of_cards[-1].color == stimulus_card[choice].color:
@@ -144,6 +139,14 @@ def matched_rule(choice):
     if stack_hand.list_of_cards[-1].number == stimulus_card[choice].number:
         matched += "number"
     return matched
+
+
+def save_results(data, filename):
+    with open(filename, 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        for row in data:
+            writer.writerow(row)
+
 
 #GameLoop
 while deck_active:
@@ -156,6 +159,8 @@ while deck_active:
     print("____________________________________________________________________")
 
 print("Game Over")
+
+save_results(logger,filename)
 
 # Need a way of storing what rule the player sorted with. 
 # Basically what category the choice was matched on.
