@@ -138,7 +138,8 @@ def matched_rule(choice):
         matched += "shape"
     if stack_hand.list_of_cards[-1].number == stimulus_card[choice].number:
         matched += "number"
-    return matched
+    
+    return matched if matched else "NONE"
 
 
 def save_results(data, filename):
