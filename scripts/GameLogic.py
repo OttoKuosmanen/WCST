@@ -6,6 +6,7 @@ shape = ["circle","square","triangle","star"]
 color = ["blue","green","red","yellow"]
 winning_streak = 0
 
+logger = []
 
 class Card:
     def __init__(self,number,shape,color):
@@ -76,12 +77,15 @@ def feedback(active_rule,choice):
 
 def update_streak(win):
     global winning_streak
+    global logger
     if win:
          winning_streak += 1
+         logger.append((1,active_rule,winning_streak))
          print(f"Streak:{winning_streak}\n")
          return winning_streak
     else:
          winning_streak = 0
+         logger.append((0,active_rule,winning_streak))
          print(f"Streak:{winning_streak}\n")
          return winning_streak
 
@@ -108,10 +112,11 @@ def user_input():
         except ValueError:
             print("Please enter a valid choice (1, 2, 3, or 4).")
             
- 
+
+    
 # Change destination of card to discard pile, when visual adding visuals.            
 def place_card(choice):
-    stim[choice].get(stack_hand.give())
+    discard[choice].get(stack_hand.give())
 
 def visuals():
     print("----HAND----")
@@ -119,6 +124,15 @@ def visuals():
     print("##############")
     for stack in stim:
                 stack.render()
+"""
+def results():
+    global rule
+    matched_rules = ""
+    for r in rule:
+        if(feedback(r, choice)):
+            matched_rules += r
+            return matched_rules
+"""        
 
 #GameLoop
 while deck_active:
@@ -132,10 +146,7 @@ while deck_active:
 
 print("Game Over")
 
-# player input id.
-# Function that records results.
-# Data type> I want to make a list of tuples. Or dictionary. 
-# That stores if the answer was correct. What rule was in play.
-# Either what was the player card and what was the chosen stim card.
+# Need a way of storing what rule the player sorted with. 
+# Basically what category the choice was matched on.
 
  
