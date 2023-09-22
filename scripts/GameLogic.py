@@ -104,7 +104,6 @@ def change_rule():
             new_rule = random.choice(rule)
         active_rule = new_rule
         winning_streak = 0
-        print(active_rule)
 
 def user_input():
     while True:
