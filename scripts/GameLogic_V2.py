@@ -180,7 +180,6 @@ while len(mainstack)>0:
     correct = card.get_card_property(active_rule)==chosen_card.get_card_property(active_rule)
     
     print(correct)
-    print(card.get_filename())
     
     # Update winstreak
     if correct:

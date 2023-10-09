@@ -162,7 +162,4 @@ print("Game Over")
 
 save_results(logger,filename)
 
-# Need a way of storing what rule the player sorted with. 
-# Basically what category the choice was matched on.
-
  
