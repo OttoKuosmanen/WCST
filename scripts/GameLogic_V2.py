@@ -146,10 +146,16 @@ def matched_category(rules,choice,card):
             matched.append(rule)
     return matched
 
+def save_results(data, filename):
+    with open(filename, 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        for row in data:
+            writer.writerow(row)
+
 mainstack = MainStack()
 dstacks = {i:DiscardStack(i) for i in range(1,5)}
 
-# initialize Psychopy specific things
+# initialize
 
 deck_active = True
 rules = ["shape", "color", "number"]
@@ -174,6 +180,7 @@ while len(mainstack)>0:
     correct = card.get_card_property(active_rule)==chosen_card.get_card_property(active_rule)
     
     print(correct)
+    print(card.get_filename())
     
     # Update winstreak
     if correct:
@@ -183,7 +190,7 @@ while len(mainstack)>0:
         
     # Logg results
     match = matched_category(rules, choice, card)
-    trial = (active_rule, match)
+    trial = [active_rule, match]
     logger.append(trial)    
     
     # Change rule if streak is more than 5   
@@ -191,8 +198,7 @@ while len(mainstack)>0:
         active_rule=random.choice(list(set(rules).difference([active_rule])))
         win_streak = 0
         
-
-
-# trial = (active_rule,matched_rule)
+save_results(logger,filename)
+        
     
     
