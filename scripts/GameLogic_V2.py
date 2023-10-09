@@ -3,9 +3,6 @@ import csv
 import os
 
 filename = "../results/data.csv"
-
-winning_streak = 0
-
 logger = []
 
 class Card:
@@ -83,7 +80,7 @@ class MainStack(Stack):
                 for x in self.colors:
                     card = Card(i,y,x)
                     self.list_of_cards.append(card)
-        #self.list_of_cards.shuffle()
+        random.shuffle(self.list_of_cards)
         
     def render(self):
         print("Main Stack: %s"%self.list_of_cards[-1])
@@ -102,13 +99,13 @@ class DiscardStack(Stack):
             self.stimulus_card=Card(1, "triangle", "red")
         elif num==2:
             self.xpos = -0.3
-            self.stimulus_card=Card(2, "triangle", "red")
+            self.stimulus_card=Card(2, "star", "green")
         elif num==3:
             self.xpos =  0.3
-            self.stimulus_card=Card(3, "triangle", "red")
+            self.stimulus_card=Card(3, "square", "yellow")
         elif num==4:
             self.xpos =  0.6
-            self.stimulus_card=Card(4, "triangle", "red")
+            self.stimulus_card=Card(4, "circle", "blue")
 
     def __repr__(self):
         if len(self.list_of_cards)>0:
@@ -138,20 +135,28 @@ def user_input():
                 print("Please enter a valid choice (1, 2, 3, or 4).")
         except ValueError:
             print("Please enter a valid choice (1, 2, 3, or 4).")
-            
 
+def matched_category(rules,choice,card):
+    """" parameters: 
+        a function that takes in, a list of matching categories 'aka' rules, and two card objects
+        returns: a list of strings that contain the categories on which the cards are matched """
+    matched = []
+    for rule in rules:
+        if card.get_card_property(rule) == chosen_card.get_card_property(rule):
+            matched.append(rule)
+    return matched
 
 mainstack = MainStack()
 dstacks = {i:DiscardStack(i) for i in range(1,5)}
 
 # initialize Psychopy specific things
-# win = Window()
-# screen  = Screen()
 
 deck_active = True
 rules = ["shape", "color", "number"]
-active_rule="shape"
+active_rule = random.choice(rules)
 win_streak=0
+
+# Game Loop
 while len(mainstack)>0:
     # render current stacks
     mainstack.render()
@@ -169,105 +174,25 @@ while len(mainstack)>0:
     correct = card.get_card_property(active_rule)==chosen_card.get_card_property(active_rule)
     
     print(correct)
+    
+    # Update winstreak
     if correct:
         win_streak += 1    
     else:
         win_streak = 0
         
+    # Logg results
+    match = matched_category(rules, choice, card)
+    trial = (active_rule, match)
+    logger.append(trial)    
+    
+    # Change rule if streak is more than 5   
     if win_streak >= 5:
-        active_rule=random.choice(set(rules).difference([active_rule]))
+        active_rule=random.choice(list(set(rules).difference([active_rule])))
         win_streak = 0
-    
-    
-    
-    #win.flip()
-    #while 1:
-    #    clicks = event.getClick()
-        # check which card was clicked etc
         
-        
+
+
+# trial = (active_rule,matched_rule)
     
     
-    # wait for user click
-"""
-#GameLoop
-while deck_active:
-    visuals()
-    choice = user_input()
-    win = feedback(active_rule,choice)
-    update_streak(win,choice)
-    place_card(choice)
-    change_rule()
-    print("____________________________________________________________________")
-
-print("Game Over")
-
-
-def feedback(active_rule,choice):
-    return getattr(stimulus_card[choice], active_rule) == getattr(stack_hand.list_of_cards[-1], active_rule)
-
-def update_streak(win,choice):
-    global winning_streak
-    global logger
-    if win:
-         winning_streak += 1
-         used_rule = matched_rule(choice)
-         logger.append((1,used_rule,active_rule,winning_streak))
-         print(f"Streak:{winning_streak}\n")
-         return winning_streak
-    else:
-         winning_streak = 0
-         used_rule = matched_rule(choice)
-         logger.append((0,used_rule,active_rule,winning_streak))
-         print(f"Streak:{winning_streak}\n")
-         return winning_streak
-
-def change_rule():
-    global winning_streak
-    global active_rule
-    new_rule = []
-    if winning_streak == 5:
-        new_rule = random.choice(rule)
-        while new_rule == active_rule:
-            new_rule = random.choice(rule)
-        active_rule = new_rule
-        winning_streak = 0
-
-
-             
-def place_card(choice):
-    discard[choice].get(stack_hand.give())
-
-def visuals():
-    print("----HAND----")
-    stack_hand.render()
-    print("##############")
-    for stack in stim:
-                stack.render()
-     
-   
-def matched_rule(choice):
-    matched = ""
-    if stack_hand.list_of_cards[-1].color == stimulus_card[choice].color:
-        matched += "color"
-    if stack_hand.list_of_cards[-1].shape == stimulus_card[choice].shape:
-        matched += "shape"
-    if stack_hand.list_of_cards[-1].number == stimulus_card[choice].number:
-        matched += "number"
-    
-    return matched if matched else "NONE"
-
-
-def save_results(data, filename):
-    with open(filename, 'w', newline='') as csvfile:
-        writer = csv.writer(csvfile)
-        for row in data:
-            writer.writerow(row)
-
-
-save_results(logger,filename)
-
-# Need a way of storing what rule the player sorted with. 
-# Basically what category the choice was matched on.
-
-"""
