@@ -197,7 +197,7 @@ while len(mainstack)>0:
         active_rule=random.choice(list(set(rules).difference([active_rule])))
         win_streak = 0
         
-save_results(logger,filename)
-        
+#save_results(logger,filename)
+      
     
     

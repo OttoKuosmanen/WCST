@@ -1,4 +1,3 @@
-from psychopy import visual, core, event  # import some libraries from PsychoPy
 import random
 import csv
 import os
@@ -69,7 +68,7 @@ class MainStack(Stack):
     Reprenstation of the main stack, containing the full set in the beginning.
     """
     xpos = 0
-    ypos = -200
+    ypos = -0.5
     numbers = [1,2,3,4]
     shapes = ["circle","square","triangle","star"]
     colors = ["blue","green","red","yellow"]
@@ -89,23 +88,23 @@ class MainStack(Stack):
     
 
 class DiscardStack(Stack):
-    ypos_stimcard = 400
-    ypos_discard = -100
+    ypos_stimcard = 0.8
+    ypos_discard = -0.2
     def __init__(self, num):
         self.list_of_cards=[]
         self.stimulus_card=None
         
         if num==1:
-            self.xpos = -300
+            self.xpos = -0.6
             self.stimulus_card=Card(1, "triangle", "red")
         elif num==2:
-            self.xpos = -100
+            self.xpos = -0.3
             self.stimulus_card=Card(2, "star", "green")
         elif num==3:
-            self.xpos =  100
+            self.xpos =  0.3
             self.stimulus_card=Card(3, "square", "yellow")
         elif num==4:
-            self.xpos =  300
+            self.xpos =  0.6
             self.stimulus_card=Card(4, "circle", "blue")
 
     def __repr__(self):
@@ -162,6 +161,22 @@ deck_active = True
 rules = ["shape", "color", "number"]
 active_rule = random.choice(rules)
 win_streak=0
+
+a = dstacks[1].stimulus_card.get_filename()
+print(a)
+
+s1_y = dstacks[1].ypos_stimcard
+s1_x = dstacks[1].xpos
+
+print(s1_x)
+print(s1_y)
+
+card = mainstack.pop()
+
+hand_img = card.get_filename()
+print(mainstack.xpos)
+print(mainstack.ypos)
+
 """
 # Game Loop
 while len(mainstack)>0:
@@ -197,45 +212,8 @@ while len(mainstack)>0:
     if win_streak >= 5:
         active_rule=random.choice(list(set(rules).difference([active_rule])))
         win_streak = 0
-"""
-# create a window
-win = visual.Window([1600,1200], monitor="testMonitor", units="pix")
-
-#Sett card size
-card_size = (128,176)
-
-# get filename of stimuli
-s1 = dstacks[1].stimulus_card.get_filename()
-s2 = dstacks[2].stimulus_card.get_filename()
-s3 = dstacks[3].stimulus_card.get_filename()
-s4 = dstacks[4].stimulus_card.get_filename()
-
-
-# create stimuli with positions
-stim1 = visual.ImageStim(win, image=s1, size=(card_size), pos = (dstacks[1].xpos, dstacks[1].ypos_stimcard))
-stim2 = visual.ImageStim(win, image=s2, size=(card_size), pos = (dstacks[2].xpos, dstacks[2].ypos_stimcard))
-stim3 = visual.ImageStim(win, image=s3, size=(card_size), pos = (dstacks[3].xpos, dstacks[3].ypos_stimcard))
-stim4 = visual.ImageStim(win, image=s4, size=(card_size), pos = (dstacks[4].xpos, dstacks[4].ypos_stimcard))
-
-
-
-
-for card in mainstack.list_of_cards:
-    card = mainstack.pop()
-    keys = event.waitKeys()
-    hand_img = card.get_filename()
-    hand = visual.ImageStim(win,image=hand_img,size=(card_size),pos=(mainstack.xpos,mainstack.ypos))
-    hand.draw()
-    stim1.draw()
-    stim2.draw()
-    stim3.draw()
-    stim4.draw()
-    win.flip()
+        
+#save_results(logger,filename)
+"""      
     
-# close the window
-win.close()
-
-# clean up at the end of the experiment.
-core.quit()
-
-
+    
