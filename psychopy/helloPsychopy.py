@@ -1,8 +1,8 @@
-from psychopy import visual, core, event  # import some libraries from PsychoPy
+from psychopy import visual, core, event, sound, prefs  # import some libraries from PsychoPy
 import random
 import csv
 import os
-
+prefs.hardware['audioLib'] = ['pygame']
 filename = "../results/data.csv"
 logger = []
 
@@ -234,6 +234,15 @@ stim2_text = visual.TextStim(win, **two)
 stim3_text = visual.TextStim(win, **three)
 stim4_text = visual.TextStim(win, **four)
 
+#Sound
+
+
+# Create a sound object from an audio file
+sound_file = "sounds/win.wav"
+win_music = sound.Sound(sound_file)
+sound.init()
+
+
 # GAMELOOP
 for card in mainstack.list_of_cards:
     card = mainstack.pop()
@@ -252,6 +261,7 @@ for card in mainstack.list_of_cards:
     
     stim4.draw()
     stim4_text.draw()
+        
 
 
     win.flip()
@@ -269,12 +279,13 @@ for card in mainstack.list_of_cards:
     
     print(correct)
     if correct:
+        win_music.stop()
+        win_music.play()
         win_streak += 1 
         text = visual.TextStim(win, **success)
         text.draw()
     else:
         win_streak = 0
-        
     # Logg results
     match = matched_category(rules, choice, card)
     trial = [active_rule, match]
