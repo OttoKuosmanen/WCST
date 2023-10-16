@@ -90,7 +90,7 @@ class MainStack(Stack):
 
 class DiscardStack(Stack):
     ypos_stimcard = 400
-    ypos_discard = -100
+    ypos_discard = 200
     def __init__(self, num):
         self.list_of_cards=[]
         self.stimulus_card=None
@@ -182,8 +182,19 @@ stim2 = visual.ImageStim(win, image=s2, size=(card_size), pos = (dstacks[2].xpos
 stim3 = visual.ImageStim(win, image=s3, size=(card_size), pos = (dstacks[3].xpos, dstacks[3].ypos_stimcard))
 stim4 = visual.ImageStim(win, image=s4, size=(card_size), pos = (dstacks[4].xpos, dstacks[4].ypos_stimcard))
 
+# TEXTS
+success = {
+    'text': 'Correct!',
+    'font': 'Arial',
+    'height': 36,
+    'color': 'green',
+    'bold': True,
+    'italic': False,
+    'pos': (0, 0)
+}
 
 
+# GAMELOOP
 for card in mainstack.list_of_cards:
     card = mainstack.pop()
     hand_img = card.get_filename()
@@ -210,7 +221,9 @@ for card in mainstack.list_of_cards:
     
     print(correct)
     if correct:
-        win_streak += 1    
+        win_streak += 1 
+        text = visual.TextStim(win, **success)
+        text.draw()
     else:
         win_streak = 0
         
