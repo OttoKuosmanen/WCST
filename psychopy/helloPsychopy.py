@@ -186,13 +186,53 @@ stim4 = visual.ImageStim(win, image=s4, size=(card_size), pos = (dstacks[4].xpos
 success = {
     'text': 'Correct!',
     'font': 'Arial',
-    'height': 36,
+    'height': 42,
     'color': 'green',
     'bold': True,
     'italic': False,
     'pos': (0, 0)
 }
 
+one = {
+    'text': '1',
+    'font': 'Arial',
+    'height': 42,
+    'color': 'white',
+    'bold': True,
+    'pos': (dstacks[1].xpos, dstacks[1].ypos_stimcard + 110)
+}
+
+two = {
+    'text': '2',
+    'font': 'Arial',
+    'height': 42,
+    'color': 'white',
+    'bold': True,
+    'pos': (dstacks[2].xpos, dstacks[2].ypos_stimcard + 110)
+}
+
+three = {
+    'text': '3',
+    'font': 'Arial',
+    'height': 42,
+    'color': 'white',
+    'bold': True,
+    'pos': (dstacks[3].xpos, dstacks[3].ypos_stimcard + 110)
+}
+
+four = {
+    'text': '4',
+    'font': 'Arial',
+    'height': 42,
+    'color': 'white',
+    'bold': True,
+    'pos': (dstacks[4].xpos, dstacks[4].ypos_stimcard + 110)
+}
+
+stim1_text = visual.TextStim(win, **one)
+stim2_text = visual.TextStim(win, **two)
+stim3_text = visual.TextStim(win, **three)
+stim4_text = visual.TextStim(win, **four)
 
 # GAMELOOP
 for card in mainstack.list_of_cards:
@@ -200,10 +240,18 @@ for card in mainstack.list_of_cards:
     hand_img = card.get_filename()
     hand = visual.ImageStim(win,image=hand_img,size=(card_size),pos=(mainstack.xpos,mainstack.ypos))
     hand.draw()
+    
     stim1.draw()
+    stim1_text.draw()
+    
     stim2.draw()
+    stim2_text.draw()
+    
     stim3.draw()
+    stim3_text.draw()
+    
     stim4.draw()
+    stim4_text.draw()
 
 
     win.flip()
