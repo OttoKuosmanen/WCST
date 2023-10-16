@@ -162,42 +162,7 @@ deck_active = True
 rules = ["shape", "color", "number"]
 active_rule = random.choice(rules)
 win_streak=0
-"""
-# Game Loop
-while len(mainstack)>0:
-    # render current stacks
-    mainstack.render()
-    for stack in dstacks.values():
-        stack.render()
-        
-    # take card from main stack
-    card = mainstack.pop()
-    # let user choose one of the cards
-    choice = user_input()
-    chosen_card=dstacks[choice].stimulus_card
-    dstacks[choice].add(card)
-    
-    # assess correctness
-    correct = card.get_card_property(active_rule)==chosen_card.get_card_property(active_rule)
-    
-    print(correct)
-    
-    # Update winstreak
-    if correct:
-        win_streak += 1    
-    else:
-        win_streak = 0
-        
-    # Logg results
-    match = matched_category(rules, choice, card)
-    trial = [active_rule, match]
-    logger.append(trial)    
-    
-    # Change rule if streak is more than 5   
-    if win_streak >= 5:
-        active_rule=random.choice(list(set(rules).difference([active_rule])))
-        win_streak = 0
-"""
+
 # create a window
 win = visual.Window([1600,1200], monitor="testMonitor", units="pix")
 
@@ -219,10 +184,8 @@ stim4 = visual.ImageStim(win, image=s4, size=(card_size), pos = (dstacks[4].xpos
 
 
 
-
 for card in mainstack.list_of_cards:
     card = mainstack.pop()
-    keys = event.waitKeys()
     hand_img = card.get_filename()
     hand = visual.ImageStim(win,image=hand_img,size=(card_size),pos=(mainstack.xpos,mainstack.ypos))
     hand.draw()
@@ -230,12 +193,39 @@ for card in mainstack.list_of_cards:
     stim2.draw()
     stim3.draw()
     stim4.draw()
+
+
     win.flip()
+    keys = event.waitKeys(keyList=['1','2','3','4'])
+    choice = int(keys[0])
+    dstacks[choice].add(card)
+    
+    for i, value in enumerate(range(1, 5)):
+        if len(dstacks[value].list_of_cards) > 0:
+            d = visual.ImageStim(win, image=dstacks[value].list_of_cards[-1].get_filename(), size=(card_size), pos = (dstacks[value].xpos, dstacks[value].ypos_discard))
+            d.draw()
+    
+    chosen_card=dstacks[choice].stimulus_card
+    correct = card.get_card_property(active_rule)==chosen_card.get_card_property(active_rule)
+    
+    print(correct)
+    if correct:
+        win_streak += 1    
+    else:
+        win_streak = 0
+        
+    # Logg results
+    match = matched_category(rules, choice, card)
+    trial = [active_rule, match]
+    logger.append(trial)    
+    
+    # Change rule if streak is more than 5   
+    if win_streak >= 5:
+        active_rule=random.choice(list(set(rules).difference([active_rule])))
+        win_streak = 0
     
 # close the window
 win.close()
 
 # clean up at the end of the experiment.
 core.quit()
-
-
