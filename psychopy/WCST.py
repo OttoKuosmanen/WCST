@@ -192,8 +192,9 @@ class DiscardStack(Stack):
             card.render()
         else:
             card="<empty>"
-            self.stimcard.render()
-            self.list_of_cards[-1].render()
+        pass
+        # call self.stimcard.render() and place at ypos_stimcard
+        # call self.list_of_cards[-1].render()
 
 # FUNCTIONS
 def user_input():
