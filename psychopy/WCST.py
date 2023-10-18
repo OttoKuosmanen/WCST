@@ -46,6 +46,7 @@ class Card:
         self.number = number
         self.shape = shape
         self.color = color
+        self.psypy = self.create_psychopy()
         
     def get_card_property(self, prop):
         """
@@ -89,7 +90,8 @@ class Card:
         """
         ppy_repr = visual.ImageStim(win,image=self.get_filename(),size=(card_size),pos=(position))
         return ppy_repr
-            
+        
+
 class Stack():
     
     """
@@ -131,9 +133,10 @@ class Stack():
         return self.list_of_cards.pop()
     
     def render(self):
-        obj = self.list_of_cards[-1].create_psychopy()
-        obj.pos = (self.xpos,self.ypos)
-        obj.draw()
+        if self.list_of_cards:
+            card = self.list_of_cards[-1]
+            card.psypy.pos = (self.xpos,self.ypos)
+            card.psypy.draw()
 
 class MainStack(Stack):
     """
@@ -154,8 +157,6 @@ class MainStack(Stack):
                     self.list_of_cards.append(card)
         random.shuffle(self.list_of_cards)
         
-    def render(self):
-        self.list-of_cards[-1].render()
     
 
 class DiscardStack(Stack):
@@ -184,18 +185,17 @@ class DiscardStack(Stack):
         else:
             card="<empty>"
         return "DiscardStack(%s, %s)"%(self.stimulus_card, card)
-    
         
     def render(self):
-        if len(self.list_of_cards)>0:
+        self.stimulus_card.psypy.pos = (self.xpos, self.ypos_stimcard)
+        self.stimulus_card.psypy.draw()
+        if self.list_of_cards:
             card=self.list_of_cards[-1]
-            card.render()
-        else:
-            card="<empty>"
-        pass
-        # call self.stimcard.render() and place at ypos_stimcard
-        # call self.list_of_cards[-1].render()
+            card.psypy.pos = (self.xpos, self.ypos_discard)
+            card.psypy.draw()
 
+
+    
 # FUNCTIONS
 def user_input():
     while True:
@@ -226,11 +226,6 @@ def save_results(data, results_destination, filename):
         writer = csv.writer(csvfile)
         for row in data:
             writer.writerow(row)
-
-# Create stacks of cards
-mainstack = MainStack()
-dstacks = {i:DiscardStack(i) for i in range(1,5)}
-
 # initialize
 rules = ["shape", "color", "number"]
 active_rule = random.choice(rules)
@@ -238,15 +233,13 @@ win_streak=0
 card_size = (128,176)
 win = visual.Window([1800,1200], monitor="testMonitor", units="pix")
 
+# Create stacks of cards
+mainstack = MainStack()
+dstacks = {i:DiscardStack(i) for i in range(1,5)}
+
+
 
 # PSYCHOPY CONSTANTS
-
-# make psychopy objects out of the stimulus cards : position set at stack level
-stim1 = dstacks[1].stimulus_card.create_psychopy((dstacks[1].xpos, dstacks[1].ypos_stimcard))
-stim2 = dstacks[2].stimulus_card.create_psychopy((dstacks[2].xpos, dstacks[2].ypos_stimcard))
-stim3 = dstacks[3].stimulus_card.create_psychopy((dstacks[3].xpos, dstacks[3].ypos_stimcard))
-stim4 = dstacks[4].stimulus_card.create_psychopy((dstacks[4].xpos, dstacks[4].ypos_stimcard))
-
 
 
 # TEXTS
@@ -319,40 +312,31 @@ sound.init()
 
 
 # GAMELOOP
+
+# Start screen
+
 while mainstack.list_of_cards:
-    # Take a card
-    card = mainstack.pop()
-    # Load the hand variable as a visual object
-    hand = card.create_psychopy((mainstack.xpos,mainstack.ypos))
-    # Render it on the window
-    hand.draw()
-    
-    stim1.draw()
-    stim1_text.draw()
-    
-    stim2.draw()
-    stim2_text.draw()
-    
-    stim3.draw()
-    stim3_text.draw()
-    
-    stim4.draw()
-    stim4_text.draw()
-        
 
-
+    # Render the top card of the stack
+    mainstack.render()
+    
+    # Render top card of discard stack and the corresponding stimcards
+    for stack in dstacks.values():
+        stack.render()
+    
+    # Update window
     win.flip()
+    
+    # Get input from user and record it as a variable
     keys = event.waitKeys(keyList=['1','2','3','4'])
     choice = int(keys[0])
+    
+    # Pop the top card from the mainstack and put it in the right discard pile
+    card = mainstack.pop()
     dstacks[choice].add(card)
     
-    # Render discard piles
-    for i, value in enumerate(range(1, 5)):
-        if len(dstacks[value].list_of_cards) > 0:
-            d = visual.ImageStim(win, image=dstacks[value].list_of_cards[-1].get_filename(), size=(card_size), pos = (dstacks[value].xpos, dstacks[value].ypos_discard))
-            d.draw()
     
-    
+    # Feedback
     chosen_card=dstacks[choice].stimulus_card
     correct = card.get_card_property(active_rule)==chosen_card.get_card_property(active_rule)
     
@@ -366,6 +350,7 @@ while mainstack.list_of_cards:
         win_streak = 0
         text = visual.TextStim(win, **fail)
         text.draw()
+        
     # Logg results
     match = matched_category(rules, choice, card)
     trial = [active_rule, match]
@@ -376,7 +361,7 @@ while mainstack.list_of_cards:
         active_rule=random.choice(list(set(rules).difference([active_rule])))
         win_streak = 0
     
-        
+#End screen
 print(logger)
 
 # close the window
