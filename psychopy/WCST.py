@@ -217,8 +217,22 @@ def matched_category(rules,choice,card):
         if card.get_card_property(rule) == chosen_card.get_card_property(rule):
             matched.append(rule)
     return matched
+    
 
+def random_key(key_length):
+    key = []
+    alpha = "abcdefghijklmnopqrstuvwxyz"
+    num = "123456789"
+    for i in range(key_length):
+        l = random.choice(alpha)
+        n = random.choice(num)
+        if int(n) % 2 == 0:
+            l = l.capitalize()
+        key.append(l + n)
+    return ''.join(key)
 
+    
+    
 
 def save_results(data, results_destination, filename):
     full_path = os.path.join(results_destination, filename)
@@ -226,6 +240,22 @@ def save_results(data, results_destination, filename):
         writer = csv.writer(csvfile)
         for row in data:
             writer.writerow(row)
+
+def results(logger):
+
+    total_correct = 0
+    total_items = len(logger)
+
+    for item in logger:
+        active_rule = item[0]
+        matched = item[1]
+
+        if active_rule in matched:
+            total_correct += 1
+
+    percent = total_correct / total_items * 100
+    return percent
+    
 # initialize
 rules = ["shape", "color", "number"]
 active_rule = random.choice(rules)
@@ -243,6 +273,17 @@ dstacks = {i:DiscardStack(i) for i in range(1,5)}
 
 
 # TEXTS
+
+intro = {
+    'text': 'Welcome to the Wisconsin Card Sorting Task! \n \n Press any key to start.',
+    'font': 'Arial',
+    'height': 36,
+    'color': 'white',
+    'bold': True,
+    'italic': False,
+    'pos': (0, 0)
+}
+
 success = {
     'text': 'Correct!',
     'font': 'Arial',
@@ -314,7 +355,10 @@ sound.init()
 # GAMELOOP
 
 # Start screen
-
+intro_txt = visual.TextStim(win, **intro)
+intro_txt.draw()
+win.flip()
+event.waitKeys()
 while mainstack.list_of_cards:
 
     # Render the top card of the stack
@@ -362,7 +406,14 @@ while mainstack.list_of_cards:
         win_streak = 0
     
 #End screen
-print(logger)
+win.flip(clearBuffer=True)
+filename = random_key(21)
+results(logger)
+
+results = visual.TextStim(win, f"You got a total of:{results(logger)}% correct")
+results.draw()
+win.flip()
+core.wait(3)
 
 # close the window
 win.close()
