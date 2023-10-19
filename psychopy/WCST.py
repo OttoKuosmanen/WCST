@@ -90,6 +90,7 @@ class Card:
         return ppy_repr
         
     def get_rect(self):
+        """A method that gives the cordinates of the card: Used when looking for mouse clicks"""
         width, height = card_size
         xpos, ypos = self.psypy.pos
         left = xpos - width / 2
@@ -185,7 +186,7 @@ class DiscardStack(Stack):
     """
     This is a multistack. Its a subclass of the stack class.
     A representation of the stimulus cards and their corresponding discard piles.
-    Compiles the stimulus decks and gives them the presett card and a rendering cordinates.
+    Compiles the stimulus decks and gives them the presett card, rendering cordinates and a clickbox.
     Contains data:
         -xpos_stimcard   -int
         -ypos_discard   -int
