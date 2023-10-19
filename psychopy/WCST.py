@@ -114,6 +114,8 @@ class Stack():
         THe end of the list is conceptualized as the top of the stack
     
     render()
+        A function that takes the card at the top of the stack and renders it on screen as psychopy image.
+        Also, updates the card with a position argument corresponding to its stack.
     """
 
     
@@ -140,8 +142,18 @@ class Stack():
 
 class MainStack(Stack):
     """
-    Reprenstation of the main stack, containing the full set in the beginning.
+    This is the player deck. Its a subclass of the stack class.
+    Compiles a a list of card objects and gives it a cordinate position.
+    
+    Contains data:
+        Contains lists of card attributes.
+        -numbers-list[int]
+        -shapes -list[str]
+        -colors -list[str]
+        -xpos   -int
+        -ypos   -int
     """
+    
     xpos = 0
     ypos = -200
     numbers = [1,2,3,4]
@@ -160,6 +172,20 @@ class MainStack(Stack):
     
 
 class DiscardStack(Stack):
+    """
+    This is a multistack. Its a subclass of the stack class.
+    A representation of the stimulus cards and their corresponding discard piles.
+    Compiles the stimulus decks and gives them the presett card and a rendering cordinates.
+    Contains data:
+        -xpos_stimcard   -int
+        -ypos_discard   -int
+    Method
+    ------
+    render()
+    Contains a custom renderingg method, specific for this multistack.
+    It will always draw the stimulus card, and if there are cards present in the discard stack, the top card will be rendered.
+    """
+    
     ypos_stimcard = 400
     ypos_discard = 200
     def __init__(self, num):
@@ -197,16 +223,7 @@ class DiscardStack(Stack):
 
     
 # FUNCTIONS
-def user_input():
-    while True:
-        try:
-            c = int(input("Type 1, 2, 3, or 4 to choose where to group your card: "))
-            if c in [1, 2, 3, 4]:
-                return c
-            else:
-                print("Please enter a valid choice (1, 2, 3, or 4).")
-        except ValueError:
-            print("Please enter a valid choice (1, 2, 3, or 4).")
+
 
 def matched_category(rules,choice,card):
     """" parameters: 
@@ -220,6 +237,10 @@ def matched_category(rules,choice,card):
     
 
 def random_key(key_length):
+    """A function that makes a random string of letters and numbers
+    Parameters: lenght of string as int
+    Returns: -> str
+    """
     key = []
     alpha = "abcdefghijklmnopqrstuvwxyz"
     num = "123456789"
@@ -235,6 +256,9 @@ def random_key(key_length):
     
 
 def save_results(data, results_destination, filename):
+    """A function that saves a datafile
+    Parameters: datafile, a folder path, a name for the file
+    """
     full_path = os.path.join(results_destination, filename)
     with open(full_path, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
@@ -242,7 +266,10 @@ def save_results(data, results_destination, filename):
             writer.writerow(row)
 
 def results(logger):
-
+    """ A function that calculates the procent of correct answers
+       param: [[[active_rule][matched_rule]],[[actice_rule][matched_rule]]]
+       returns: percent correct as float
+    """
     total_correct = 0
     total_items = len(logger)
 
@@ -345,20 +372,21 @@ stim2_text = visual.TextStim(win, **two)
 stim3_text = visual.TextStim(win, **three)
 stim4_text = visual.TextStim(win, **four)
 
-#Sound
+#SOUNDS
 # Create a sound object from an audio file
-sound_file = "sounds/win.wav"
-win_music = sound.Sound(sound_file)
-sound.init()
+#sound_file = "sounds/win.wav"
+#win_music = sound.Sound(sound_file)
+#sound.init()
 
 
-# GAMELOOP
+# GAME
 
 # Start screen
 intro_txt = visual.TextStim(win, **intro)
 intro_txt.draw()
 win.flip()
 event.waitKeys()
+#Main loop
 while mainstack.list_of_cards:
 
     # Render the top card of the stack
@@ -385,8 +413,8 @@ while mainstack.list_of_cards:
     correct = card.get_card_property(active_rule)==chosen_card.get_card_property(active_rule)
     
     if correct:
-        win_music.stop()
-        win_music.play()
+        #win_music.stop()
+        #win_music.play()
         win_streak += 1 
         text = visual.TextStim(win, **success)
         text.draw()
@@ -410,11 +438,13 @@ win.flip(clearBuffer=True)
 filename = random_key(21)
 results(logger)
 
-results = visual.TextStim(win, f"You got a total of:{results(logger)}% correct")
+results = visual.TextStim(win, f"You got a total of: {results(logger)}% correct")
 results.draw()
 win.flip()
 core.wait(3)
 
+# save data
+save_results(logger,results_destination,filename)
 # close the window
 win.close()
 
