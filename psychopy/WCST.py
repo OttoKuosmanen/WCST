@@ -4,9 +4,7 @@ import random
 import csv
 import os
 
-# Output
-    # To do, make data file name dependent on the user input.
-    # or generate random code for users, or something along theese lines.
+# OUTPUT
 results_destination = "results/"
 filename = "BLANK"
 logger = []
@@ -91,6 +89,16 @@ class Card:
         ppy_repr = visual.ImageStim(win,image=self.get_filename(),size=(card_size),pos=(position))
         return ppy_repr
         
+    def get_rect(self):
+        width, height = card_size
+        xpos, ypos = self.psypy.pos
+        left = xpos - width / 2
+        right = xpos + width / 2
+        top = ypos + height / 2
+        bottom = ypos - height / 2
+
+        return [left, top, right, bottom]
+        
 
 class Stack():
     
@@ -139,6 +147,8 @@ class Stack():
             card = self.list_of_cards[-1]
             card.psypy.pos = (self.xpos,self.ypos)
             card.psypy.draw()
+            
+
 
 class MainStack(Stack):
     """
@@ -191,20 +201,25 @@ class DiscardStack(Stack):
     def __init__(self, num):
         self.list_of_cards=[]
         self.stimulus_card=None
-        
         if num==1:
             self.xpos = -300
             self.stimulus_card=Card(1, "triangle", "red")
+
         elif num==2:
             self.xpos = -100
             self.stimulus_card=Card(2, "star", "green")
+           
         elif num==3:
             self.xpos =  100
             self.stimulus_card=Card(3, "square", "yellow")
+          
         elif num==4:
             self.xpos =  300
             self.stimulus_card=Card(4, "circle", "blue")
-
+            
+        self.stimulus_card.psypy.pos = (self.xpos, self.ypos_stimcard)
+        self.stimulus_card.rect = self.stimulus_card.get_rect()
+        
     def __repr__(self):
         if len(self.list_of_cards)>0:
             card=self.list_of_cards[-1]
@@ -372,6 +387,8 @@ stim2_text = visual.TextStim(win, **two)
 stim3_text = visual.TextStim(win, **three)
 stim4_text = visual.TextStim(win, **four)
 
+stim_text = [stim1_text,stim2_text,stim3_text,stim4_text]
+
 #SOUNDS
 # Create a sound object from an audio file
 #sound_file = "sounds/win.wav"
@@ -385,7 +402,8 @@ stim4_text = visual.TextStim(win, **four)
 intro_txt = visual.TextStim(win, **intro)
 intro_txt.draw()
 win.flip()
-event.waitKeys()
+mouse = event.Mouse()
+
 #Main loop
 while mainstack.list_of_cards:
 
@@ -396,17 +414,35 @@ while mainstack.list_of_cards:
     for stack in dstacks.values():
         stack.render()
     
+    # Render text
+    for text in stim_text:
+        text.draw()
+        
     # Update window
     win.flip()
     
-    # Get input from user and record it as a variable
-    keys = event.waitKeys(keyList=['1','2','3','4'])
-    choice = int(keys[0])
+    choice = None
+    while choice is None:
+        # Check for mouse click first
+        if mouse.getPressed()[0]:  # [0] corresponds to the left mouse button
+            mouse_pos = mouse.getPos()
+            for i, dstack in dstacks.items():
+                rect = dstack.stimulus_card.rect
+                if (rect[0] <= mouse_pos[0] <= rect[2] and rect[1] >= mouse_pos[1] >= rect[3]): #left,top,right,bottom
+                    choice = i
+                    break
+        else:
+            # If no mouse click, wait for keyboard input
+            keys = event.getKeys(keyList=['1','2','3','4'])
+            if keys:
+                choice = int(keys[0])
+
     
     # Pop the top card from the mainstack and put it in the right discard pile
     card = mainstack.pop()
     dstacks[choice].add(card)
     
+
     
     # Feedback
     chosen_card=dstacks[choice].stimulus_card

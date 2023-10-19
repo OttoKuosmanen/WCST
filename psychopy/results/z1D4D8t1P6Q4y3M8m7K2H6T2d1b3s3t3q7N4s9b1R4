@@ -1,0 +1,64 @@
+color,"['shape', 'number']"
+color,[]
+color,[]
+color,['number']
+color,[]
+color,['number']
+color,[]
+color,['color']
+color,[]
+color,"['shape', 'number']"
+color,[]
+color,[]
+color,[]
+color,[]
+color,[]
+color,['shape']
+color,['number']
+color,"['shape', 'color', 'number']"
+color,[]
+color,"['shape', 'color']"
+color,[]
+color,['shape']
+color,['shape']
+color,['color']
+color,['color']
+color,[]
+color,['color']
+color,"['color', 'number']"
+color,[]
+color,['color']
+color,['number']
+color,[]
+color,['number']
+color,['color']
+color,"['color', 'number']"
+color,"['shape', 'color', 'number']"
+color,[]
+color,['number']
+color,['shape']
+color,[]
+color,['shape']
+color,[]
+color,[]
+color,[]
+color,['number']
+color,['shape']
+color,[]
+color,"['shape', 'number']"
+color,[]
+color,[]
+color,['number']
+color,['number']
+color,['number']
+color,['color']
+color,"['shape', 'color']"
+color,"['color', 'number']"
+color,['color']
+color,['color']
+number,"['color', 'number']"
+number,['number']
+number,"['shape', 'number']"
+number,"['shape', 'color']"
+number,['number']
+number,[]
