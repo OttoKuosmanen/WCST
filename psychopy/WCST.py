@@ -5,9 +5,10 @@ import csv
 import os
 
 # OUTPUT
-results_destination = "results/"
-filename = "BLANK"
-logger = []
+results_destination = "results/"   # Data storage. Excel friendly csv.
+filename = "BLANK"  # Id subject if wanted
+logger = [] #More data is better. Cards. 
+
 
 # CLASSES
 class Card:
@@ -30,6 +31,7 @@ class Card:
     get_filename() -> str:
         Returns the filename of the image associated with the card.
         _CAUTION_
+        Sett window before initialzing any cards.
         Dependent on correct image_path: Sett inside the class. 
         As of now, only works if you actually have png files at the image_path, that are named following the format: number_shape_color.png
         
@@ -37,14 +39,22 @@ class Card:
         Creates a PsychoPy ImageStim object representing the card.
     """
     
-    #The directory path where card images are stored.
+    #The directory path where card images are stored and card_size.
     image_path = "cards/"
+    card_size = (128,176)
+    _pos = None
+    window = None
+    
+    @classmethod
+    def set_window(cls,window):
+        cls.window = window
     
     def __init__(self,number,shape,color):
         self.number = number
         self.shape = shape
         self.color = color
         self.psypy = self.create_psychopy()
+     
         
     def get_card_property(self, prop):
         """
@@ -67,12 +77,12 @@ class Card:
         """
         return "Card({num},{shape},{color})".format(num=self.number,shape=self.shape, color=self.color)
     
-    def get_filename(self):
+    def get_filename(self): # property possibility
         """Return filename of the image file for that card"""
         fname = os.path.join(self.image_path, "%i_%s_%s.png"%(self.number, self.shape, self.color))
         return fname
     
-    def create_psychopy(self, position=(0,0)):
+    def create_psychopy(self, position=(0,0), **kwargs):
         """
         Creates a PsychoPy ImageStim object representing the card.
     
@@ -86,12 +96,28 @@ class Card:
         --------
         A PsychoPy ImageStim object with the card's image set at the specified position.
         """
-        ppy_repr = visual.ImageStim(win,image=self.get_filename(),size=(card_size),pos=(position))
+        if not Card.window:
+            raise ValueError("The window attribute for Card is not set. Use Card.set_window() and give the class a valid psychopy window configuration.")
+        ppy_repr = visual.ImageStim(Card.window,image=self.get_filename(),size=(self.card_size),pos=(position), **kwargs)
         return ppy_repr
         
-    def get_rect(self):
+    @property
+    def pos(self):
+        return self._pos
+    
+    @pos.setter
+    def pos(self, value):
+        self._pos = value
+        self.psypy.pos = value
+
+        
+    def render(self):
+        self.psypy.draw()
+        
+    @property
+    def rect(self):
         """A method that gives the cordinates of the card: Used when looking for mouse clicks"""
-        width, height = card_size
+        width, height = self.card_size
         xpos, ypos = self.psypy.pos
         left = xpos - width / 2
         right = xpos + width / 2
@@ -146,9 +172,8 @@ class Stack():
     def render(self):
         if self.list_of_cards:
             card = self.list_of_cards[-1]
-            card.psypy.pos = (self.xpos,self.ypos)
-            card.psypy.draw()
-            
+            card.pos = (self.xpos, self.ypos)
+            card.render()
 
 
 class MainStack(Stack):
@@ -190,15 +215,25 @@ class DiscardStack(Stack):
     Contains data:
         -xpos_stimcard   -int
         -ypos_discard   -int
+        -stimdesign    -dict : contains text information for psychoppy textStim object : Can be changed in class for visual customization.
     Method
     ------
     render()
     Contains a custom renderingg method, specific for this multistack.
     It will always draw the stimulus card, and if there are cards present in the discard stack, the top card will be rendered.
+    Additionally, it will draw a psychopy text object on top of the stimulus card, indicating keybord input for choosing that stimulus card.
     """
     
     ypos_stimcard = 400
     ypos_discard = 200
+    
+    stimdesign  = {
+    'font': 'Arial',
+    'height': 42,
+    'color': 'white',
+    'bold': True
+    }
+    
     def __init__(self, num):
         self.list_of_cards=[]
         self.stimulus_card=None
@@ -218,8 +253,7 @@ class DiscardStack(Stack):
             self.xpos =  300
             self.stimulus_card=Card(4, "circle", "blue")
             
-        self.stimulus_card.psypy.pos = (self.xpos, self.ypos_stimcard)
-        self.stimulus_card.rect = self.stimulus_card.get_rect()
+        self.stimulus_card.pos = (self.xpos, self.ypos_stimcard)
         
     def __repr__(self):
         if len(self.list_of_cards)>0:
@@ -229,12 +263,25 @@ class DiscardStack(Stack):
         return "DiscardStack(%s, %s)"%(self.stimulus_card, card)
         
     def render(self):
-        self.stimulus_card.psypy.pos = (self.xpos, self.ypos_stimcard)
-        self.stimulus_card.psypy.draw()
+        # render the stimulus card
+        self.stimulus_card.pos = (self.xpos, self.ypos_stimcard)
+        self.stimulus_card.render()
+        # if there are cards in the discard stack render the top card
         if self.list_of_cards:
             card=self.list_of_cards[-1]
-            card.psypy.pos = (self.xpos, self.ypos_discard)
-            card.psypy.draw()
+            card.pos = (self.xpos, self.ypos_discard)
+            card.render()
+        # render the number on top of the stack
+        add = {
+        'text': self.stimulus_card.number,
+        'pos': (self.xpos, self.ypos_stimcard + 110)
+        }
+        design = DiscardStack.stimdesign.copy()
+        design.update(add)
+        stim_text = visual.TextStim(window, **design)
+        stim_text.draw()
+
+
 
 
     
@@ -299,20 +346,20 @@ def results(logger):
     percent = total_correct / total_items * 100
     return percent
     
+
+
+
 # initialize
 rules = ["shape", "color", "number"]
-active_rule = random.choice(rules)
 win_streak=0
-card_size = (128,176)
-win = visual.Window([1800,1200], monitor="testMonitor", units="pix")
+
+# Window settings
+window = visual.Window([1800,1200], monitor="testMonitor", units="pix")
+Card.set_window(window) # Pass in the window for the card class
 
 # Create stacks of cards
 mainstack = MainStack()
 dstacks = {i:DiscardStack(i) for i in range(1,5)}
-
-
-
-# PSYCHOPY CONSTANTS
 
 
 # TEXTS
@@ -347,48 +394,7 @@ fail = {
     'pos': (0, 0)
 }
 
-one = {
-    'text': '1',
-    'font': 'Arial',
-    'height': 42,
-    'color': 'white',
-    'bold': True,
-    'pos': (dstacks[1].xpos, dstacks[1].ypos_stimcard + 110)
-}
 
-two = {
-    'text': '2',
-    'font': 'Arial',
-    'height': 42,
-    'color': 'white',
-    'bold': True,
-    'pos': (dstacks[2].xpos, dstacks[2].ypos_stimcard + 110)
-}
-
-three = {
-    'text': '3',
-    'font': 'Arial',
-    'height': 42,
-    'color': 'white',
-    'bold': True,
-    'pos': (dstacks[3].xpos, dstacks[3].ypos_stimcard + 110)
-}
-
-four = {
-    'text': '4',
-    'font': 'Arial',
-    'height': 42,
-    'color': 'white',
-    'bold': True,
-    'pos': (dstacks[4].xpos, dstacks[4].ypos_stimcard + 110)
-}
-
-stim1_text = visual.TextStim(win, **one)
-stim2_text = visual.TextStim(win, **two)
-stim3_text = visual.TextStim(win, **three)
-stim4_text = visual.TextStim(win, **four)
-
-stim_text = [stim1_text,stim2_text,stim3_text,stim4_text]
 
 #SOUNDS
 # Create a sound object from an audio file
@@ -399,14 +405,20 @@ stim_text = [stim1_text,stim2_text,stim3_text,stim4_text]
 
 # GAME
 
+# set active rule
+active_rule = random.choice(rules)
+
+
 # Start screen
-intro_txt = visual.TextStim(win, **intro)
+intro_txt = visual.TextStim(window, **intro)
 intro_txt.draw()
-win.flip()
+window.flip()
 mouse = event.Mouse()
 
+## instructions
+
 #Main loop
-while mainstack.list_of_cards:
+while len(mainstack)>0:
 
     # Render the top card of the stack
     mainstack.render()
@@ -414,13 +426,10 @@ while mainstack.list_of_cards:
     # Render top card of discard stack and the corresponding stimcards
     for stack in dstacks.values():
         stack.render()
-    
-    # Render text
-    for text in stim_text:
-        text.draw()
-        
+          
+
     # Update window
-    win.flip()
+    window.flip()
     
     choice = None
     while choice is None:
@@ -453,11 +462,11 @@ while mainstack.list_of_cards:
         #win_music.stop()
         #win_music.play()
         win_streak += 1 
-        text = visual.TextStim(win, **success)
+        text = visual.TextStim(window, **success)
         text.draw()
     else:
         win_streak = 0
-        text = visual.TextStim(win, **fail)
+        text = visual.TextStim(window, **fail)
         text.draw()
         
     # Logg results
@@ -471,19 +480,19 @@ while mainstack.list_of_cards:
         win_streak = 0
     
 #End screen
-win.flip(clearBuffer=True)
+window.flip(clearBuffer=True)
 filename = random_key(21)
 results(logger)
 
-results = visual.TextStim(win, f"You got a total of: {results(logger)}% correct")
+results = visual.TextStim(window, f"You got a total of: {results(logger)}% correct")
 results.draw()
-win.flip()
+window.flip()
 core.wait(3)
 
 # save data
 save_results(logger,results_destination,filename)
 # close the window
-win.close()
+window.close()
 
 # clean up at the end of the experiment.
 core.quit()
