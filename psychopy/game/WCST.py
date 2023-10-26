@@ -5,7 +5,7 @@ import csv
 import os
 
 # OUTPUT
-results_destination = "results/"   # Data storage. Excel friendly csv.
+results_destination = "../results/"   # Data storage. Excel friendly csv.
 filename = "BLANK"  # Id subject if wanted
 logger = [] #More data is better. Cards. 
 
@@ -40,7 +40,7 @@ class Card:
     """
     
     #The directory path where card images are stored and card_size.
-    image_path = "cards/"
+    image_path = "../cards/"
     card_size = (128,176)
     _pos = None
     window = None
@@ -394,7 +394,7 @@ fail = {
     'pos': (0, 0)
 }
 
-
+text_input = visual.TextBox2(win=window, text='Write your username: ')
 
 #SOUNDS
 # Create a sound object from an audio file
@@ -402,7 +402,9 @@ fail = {
 #win_music = sound.Sound(sound_file)
 #sound.init()
 
+#LOGO
 
+logo = visual.ImageStim(window,image="../logo/logo.png",pos=(0,300),size=(400,400))
 # GAME
 
 # set active rule
@@ -415,10 +417,37 @@ intro_txt.draw()
 window.flip()
 mouse = event.Mouse()
 
+
+# user_name
+
+username = []
+valid_characters = set('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789')
+
+while True:
+    logo.draw()
+    keys = event.getKeys()
+    
+    if 'return' in keys:
+        break
+    elif 'backspace' in keys:
+        text_input.text = text_input.text[:-1]
+        username = username[:-1]
+    elif 'space' in keys:
+        pass
+    elif len(keys) == 1 and keys[0] in valid_characters:
+        username += keys[0]
+        text_input.text += keys[0]
+    
+    text_input.draw()
+    window.flip()
+
+filename ="".join(username)
+window.flip(clearBuffer=True)
+
 ## instructions
 
 #Main loop
-while len(mainstack)>0:
+while len(mainstack)>60:
 
     # Render the top card of the stack
     mainstack.render()
@@ -481,7 +510,7 @@ while len(mainstack)>0:
     
 #End screen
 window.flip(clearBuffer=True)
-filename = random_key(21)
+#filename = random_key(21)
 results(logger)
 
 results = visual.TextStim(window, f"You got a total of: {results(logger)}% correct")
