@@ -365,9 +365,19 @@ dstacks = {i:DiscardStack(i) for i in range(1,5)}
 # TEXTS
 
 intro = {
-    'text': 'Welcome to the Wisconsin Card Sorting Task! \n \n Press any key to start.',
+    'text': 'Welcome to the Wisconsin type Card Sorting Task! \n \n Press Space to continue or Esc to quit.',
     'font': 'Arial',
     'height': 36,
+    'color': 'white',
+    'bold': True,
+    'italic': False,
+    'pos': (0, -100)
+}
+
+instruct = {
+    'text': 'Your task is to put the cards into four groups, underneath the ones on top of the screen. You will be informed whether you are right or wrong. \n \n To choose the group you can either click the card or use the corresponding numbers on your keyboard.\n \n Press space when you are ready to start the game!',
+    'font': 'Arial',
+    'height': 26,
     'color': 'white',
     'bold': True,
     'italic': False,
@@ -403,8 +413,8 @@ text_input = visual.TextBox2(win=window, text='Write your username: ')
 #sound.init()
 
 #LOGO
-
 logo = visual.ImageStim(window,image="../logo/logo.png",pos=(0,300),size=(400,400))
+
 # GAME
 
 # set active rule
@@ -413,9 +423,22 @@ active_rule = random.choice(rules)
 
 # Start screen
 intro_txt = visual.TextStim(window, **intro)
-intro_txt.draw()
-window.flip()
-mouse = event.Mouse()
+start_key = "space"
+end_key = "escape"
+while True:
+    logo.draw()
+    intro_txt.draw()
+    window.flip()
+
+    # Check for keypresses
+    keys = event.getKeys()
+
+    if start_key in keys:
+        break
+    elif end_key in keys:
+        window.close()
+        core.quit()
+
 
 
 # user_name
@@ -430,8 +453,9 @@ while True:
     if 'return' in keys:
         break
     elif 'backspace' in keys:
-        text_input.text = text_input.text[:-1]
-        username = username[:-1]
+        if len(username) > 0:
+            text_input.text = text_input.text[:-1]
+            username = username[:-1]
     elif 'space' in keys:
         pass
     elif len(keys) == 1 and keys[0] in valid_characters:
@@ -441,11 +465,27 @@ while True:
     text_input.draw()
     window.flip()
 
-filename ="".join(username)
 window.flip(clearBuffer=True)
-
+    
+if len(username) > 0:
+    filename ="".join(username)
+else:
+    filename = random_key(21)
+    
 ## instructions
+instruction = visual.TextStim(window, **instruct)
+while True:
+    
+    instruction.draw()
+    window.flip()
 
+    # Check for keypresses
+    keys = event.getKeys()
+
+    if start_key in keys:
+        break
+        
+mouse = event.Mouse()
 #Main loop
 while len(mainstack)>60:
 
@@ -510,7 +550,6 @@ while len(mainstack)>60:
     
 #End screen
 window.flip(clearBuffer=True)
-#filename = random_key(21)
 results(logger)
 
 results = visual.TextStim(window, f"You got a total of: {results(logger)}% correct")
