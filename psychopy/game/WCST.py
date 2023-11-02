@@ -331,29 +331,29 @@ def save_results(data, results_destination, filename):
         writer = csv.writer(csvfile)
         for row in data:
             writer.writerow(row)
-
-def results(logger):
-    """ A function that calculates the procent of correct answers
-       param: [[[active_rule][matched_rule]],[[actice_rule][matched_rule]]]
-       returns: percent correct as float
-    """
-    total_correct = 0
-    total_items = len(logger)
-
-    for item in logger:
-        active_rule = item[0]
-        matched = item[1]
-
-        if active_rule in matched:
-            total_correct += 1
-
-    percent = total_correct / total_items * 100
-    return percent
- 
- 
+            
+            
 def track(data_point, trial):
     trial.append(data_point)
     return trial
+    
+    
+
+def results(data):
+    index = ["card","chosen card", "success", "matched on categories", "active rule",  "win streak"]
+    # procent_correct
+    target_list = [item[2] for item in data]
+    total_correct = sum(target_list)
+    total_number = len(target_list)
+    procent_correct = total_correct /total_number * 100
+    #
+    target_list = [item[5] for item in data if item[5] == 5]
+    completed_categories = len(target_list)
+    
+    return procent_correct, completed_categories
+    
+
+
 
 
 # initialize
@@ -432,6 +432,7 @@ active_rule = random.choice(rules)
 intro_txt = visual.TextStim(window, **intro)
 start_key = "space"
 end_key = "escape"
+"""
 while True:
     logo.draw()
     intro_txt.draw()
@@ -445,7 +446,7 @@ while True:
     elif end_key in keys:
         window.close()
         core.quit()
-
+"""
 
 
 # user_name
@@ -494,7 +495,7 @@ while True:
         
 mouse = event.Mouse()
 #Main loop
-while len(mainstack)>60:
+while len(mainstack)>55:
     
     trial = [] # initialize a trial data list
 
@@ -555,19 +556,22 @@ while len(mainstack)>60:
     match = matched_category(rules, choice, card)
     track(match,trial)
     track(active_rule,trial)
-    
+    track(win_streak,trial)
     # Change rule if streak is more than 5   
     if win_streak >= 5:
         active_rule=random.choice(list(set(rules).difference([active_rule])))
         win_streak = 0
-    track(win_streak,trial)
     
     game_data.append(trial)
 
-    
+# results
+
+p, c = results(game_data)
+pro = int(p)
+
 #End screen
 window.flip(clearBuffer=True)
-results = visual.TextStim(window, f"You got a total of: correct") # show some score data at the end of the game.
+results = visual.TextStim(window, f"You got a total of {pro} procent correct  \n You completed a total of {c} categories") # show some score data at the end of the game.
 results.draw()
 window.flip()
 core.wait(3)
