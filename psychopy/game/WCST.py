@@ -3,11 +3,15 @@ from psychopy import visual, core, event, sound, prefs
 import random
 import csv
 import os
+import pandas as pd
+
 
 # OUTPUT
 results_destination = "../results/"   # Data storage. Excel friendly csv.
 filename = "BLANK"  # Id subject if wanted
-logger = [] #More data is better. Cards. 
+
+index = ["card","chosen card", "success", "matched on categories", "active rule",  "win streak"]
+game_data = [] 
 
 
 # CLASSES
@@ -75,7 +79,7 @@ class Card:
         Returns the string representation of the card object
         str: Card(number,shape,color)
         """
-        return "Card({num},{shape},{color})".format(num=self.number,shape=self.shape, color=self.color)
+        return "{num},{shape},{color}".format(num=self.number,shape=self.shape, color=self.color)
     
     def get_filename(self): # property possibility
         """Return filename of the image file for that card"""
@@ -345,8 +349,11 @@ def results(logger):
 
     percent = total_correct / total_items * 100
     return percent
-    
-
+ 
+ 
+def track(data_point, trial):
+    trial.append(data_point)
+    return trial
 
 
 # initialize
@@ -488,6 +495,8 @@ while True:
 mouse = event.Mouse()
 #Main loop
 while len(mainstack)>60:
+    
+    trial = [] # initialize a trial data list
 
     # Render the top card of the stack
     mainstack.render()
@@ -519,13 +528,17 @@ while len(mainstack)>60:
     
     # Pop the top card from the mainstack and put it in the right discard pile
     card = mainstack.pop()
+    track(card.__repr__(),trial)
+    
     dstacks[choice].add(card)
+    track(dstacks[choice].stimulus_card.__repr__(),trial)
     
 
     
     # Feedback
     chosen_card=dstacks[choice].stimulus_card
     correct = card.get_card_property(active_rule)==chosen_card.get_card_property(active_rule)
+    track(correct,trial)
     
     if correct:
         #win_music.stop()
@@ -540,25 +553,42 @@ while len(mainstack)>60:
         
     # Logg results
     match = matched_category(rules, choice, card)
-    trial = [active_rule, match]
-    logger.append(trial)    
+    track(match,trial)
+    track(active_rule,trial)
     
     # Change rule if streak is more than 5   
     if win_streak >= 5:
         active_rule=random.choice(list(set(rules).difference([active_rule])))
         win_streak = 0
+    track(win_streak,trial)
+    
+    game_data.append(trial)
+
     
 #End screen
 window.flip(clearBuffer=True)
-results(logger)
-
-results = visual.TextStim(window, f"You got a total of: {results(logger)}% correct")
+results = visual.TextStim(window, f"You got a total of: correct") # show some score data at the end of the game.
 results.draw()
 window.flip()
 core.wait(3)
 
+
 # save data
-save_results(logger,results_destination,filename)
+game_data_dicts = []
+
+for trial_data in game_data:
+    trial_dict = {}
+    
+    for i, field in enumerate(index):
+        trial_dict[field] = trial_data[i]
+    
+    game_data_dicts.append(trial_dict)
+
+df = pd.DataFrame(game_data_dicts)
+
+output_filename = f"{filename}_data.csv"
+df.to_csv(os.path.join(results_destination, output_filename), index=False)
+
 # close the window
 window.close()
 
