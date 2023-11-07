@@ -1,0 +1,10 @@
+card,chosen card,success,matched on categories,active rule,win streak
+"1,triangle,green","1,triangle,red",True,"['shape', 'number']",number,1
+"4,star,green","2,star,green",False,"['shape', 'color']",number,0
+"1,star,red","1,triangle,red",True,"['color', 'number']",number,1
+"4,star,blue","4,circle,blue",True,"['color', 'number']",number,2
+"4,square,green","4,circle,blue",True,['number'],number,3
+"3,triangle,red","3,square,yellow",True,['number'],number,4
+"3,circle,yellow","3,square,yellow",True,"['color', 'number']",number,5
+"1,star,blue","1,triangle,red",False,['number'],shape,0
+"3,square,blue","3,square,yellow",True,"['shape', 'number']",shape,1

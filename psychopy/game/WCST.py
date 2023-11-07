@@ -8,7 +8,7 @@ import pandas as pd
 
 # OUTPUT
 results_destination = "../results/"   # Data storage. Excel friendly csv.
-filename = "BLANK"  # Id subject if wanted
+filename = "BLANK"  # Participant_id
 
 index = ["card","chosen card", "success", "matched on categories", "active rule",  "win streak"]
 game_data = [] 
@@ -340,17 +340,35 @@ def track(data_point, trial):
     
 
 def results(data):
+    holder = "blank"
+    preservative_error = 0
     index = ["card","chosen card", "success", "matched on categories", "active rule",  "win streak"]
     # procent_correct
-    target_list = [item[2] for item in data]
-    total_correct = sum(target_list)
-    total_number = len(target_list)
+    win_list = [item[2] for item in data]
+    total_correct = sum(win_list)
+    total_number = len(win_list)
     procent_correct = total_correct /total_number * 100
-    #
-    target_list = [item[5] for item in data if item[5] == 5]
-    completed_categories = len(target_list)
     
-    return procent_correct, completed_categories
+    # Categories completed
+    win_streak = [item[5]for item in data]
+    completed = [item[5] for item in data if item[5] == 5]
+    completed_categories = len(completed)
+    
+    # Error type
+    active_rule = [item[4] for item in data]
+    matched_categories = [item[3] for item in data]
+    
+    for index, (win, rule, matched, streak) in enumerate(zip(win_list, active_rule, matched_categories, win_streak)):  # Figure out how to calculate this
+        print(index)
+        if streak == 5:
+            holder = rule
+        if win == False and holder in matched:
+            print(f"There was a preservative error at trial:{index + 1}")
+            preservative_error += 1
+    
+    
+    
+    return procent_correct, completed_categories, preservative_error
     
 
 
@@ -495,7 +513,7 @@ while True:
         
 mouse = event.Mouse()
 #Main loop
-while len(mainstack)>55:
+while len(mainstack)>40:
     
     trial = [] # initialize a trial data list
 
@@ -566,12 +584,12 @@ while len(mainstack)>55:
 
 # results
 
-p, c = results(game_data)
+p, c, e = results(game_data)
 pro = int(p)
 
 #End screen
 window.flip(clearBuffer=True)
-results = visual.TextStim(window, f"You got a total of {pro} procent correct  \n You completed a total of {c} categories") # show some score data at the end of the game.
+results = visual.TextStim(window, f"You got a total of {pro}% correct  \n You completed a total of {c} categories \n Preservative errors: {e}") # show some score data at the end of the game.
 results.draw()
 window.flip()
 core.wait(3)
