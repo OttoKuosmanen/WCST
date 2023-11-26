@@ -2,7 +2,7 @@
 
 ![logo](logo.png)
 
-This is a Python project where we have created a computer version of the Wisconsin Card Sorting Task, running with PsychoPy. The end product is a game that can be run locally on any computer.
+This is a Python project where we have created a computer version of the Wisconsin Card Sorting Task, running with PsychoPy. The end product is a psychological test that can be run locally on any computer.
 
 This project was inspired by the original paper by Esta Berg (1948). It was created for educational purposes as part of a university course at the Arctic University of Norway, UiT.
 
