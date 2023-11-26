@@ -2,18 +2,27 @@
 
 ![logo](logo.png)
 
-This is a Python project to create a computer version of the Wisconsin Card Sorting Task, running with PsychoPy. The end product is a game that can be run locally on any computer.
+This is a Python project where we have created a computer version of the Wisconsin Card Sorting Task, running with PsychoPy. The end product is a game that can be run locally on any computer.
 
-**Sources**:
-- Esta A. Berg (1948) A Simple Objective Technique for Measuring Flexibility in Thinking, The Journal of General Psychology, 39:1, 15-22, DOI: 10.1080/00221309.1948.9918159
+This project was inspired by the original paper by Esta Berg (1948). It was created for educational purposes as part of a university course at the Arctic University of Norway, UiT.
 
+## Installation
+
+**Download the Repository**
+   - Navigate to the GitHub repository page.
+   - Click on the 'Code' button and select 'Download ZIP', or clone the repository using Git:
+     ```
+     git clone [repository URL]
+     ```
+-**Install Psychopy**
+PsychoPy needs to be installed locally to play. [Download PsychoPy](https://www.psychopy.org/download.html)
 ## DIRECTORIES
 
 ### Psychopy
 In this directory, you'll find a PsychoPy version of the WCST.
 
 - **game**
-  - The game is stored as `WCST.py`. PsychoPy needs to be installed locally to play. [Download PsychoPy](https://www.psychopy.org/download.html)
+  - The game is stored as `WCST.py`.
 - **cards**
   - Contains image files of the cards.
 - **sounds**
@@ -43,5 +52,7 @@ Find the independent game logic for the WCST as a Python script.
 - **GameLogic**
   - Initial logic of the game.
 
-This project was inspired by the original paper by Esta Berg (1948). It was created for educational purposes as part of a university course at the Arctic University of Norway, UiT.
+**Sources**:
+- Esta A. Berg (1948) A Simple Objective Technique for Measuring Flexibility in Thinking, The Journal of General Psychology, 39:1, 15-22, DOI: 10.1080/00221309.1948.9918159
+
 
