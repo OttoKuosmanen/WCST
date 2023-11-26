@@ -1,4 +1,4 @@
-# Wisconsin Card Sorting Task - Python Project
+# Wisconsin Type Card Sorting Task - Psychopy Edition
 
 ![logo](logo.png)
 
@@ -8,14 +8,22 @@ This project was inspired by the original paper by Esta Berg (1948). It was crea
 
 ## Installation
 
-**Download the Repository**
+1. **Download the Repository**
    - Navigate to the GitHub repository page.
    - Click on the 'Code' button and select 'Download ZIP'
 
-**Install Psychopy**
-PsychoPy needs to be installed locally to play. [Download PsychoPy](https://www.psychopy.org/download.html)
+2. **Install PsychoPy**
+   - PsychoPy is required to run the game.
+   - Download PsychoPy by following this link: [Download PsychoPy Locally](https://www.psychopy.org/download.html).
+   - Install PsychoPy on your machine following the instructions provided on the website.
 
-## DIRECTORIES
+3. **Run the Game**
+   - After installing PsychoPy, open the PsychoPy Coder.
+   - In the PsychoPy Coder, open the `WCST.py` game script. This file is located in the `Psychopy` directory of the cloned repository.
+   - Execute the script to start the game.
+
+
+## Folder Overview
 
 ### Psychopy
 In this directory, you'll find a PsychoPy version of the WCST.
