@@ -1,4 +1,4 @@
-# Wisconsin Card Sorting Task type psychological test. (WCST)
+![logo](logo.png)
 
 INTRO
 
