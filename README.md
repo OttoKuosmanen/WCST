@@ -2,6 +2,13 @@
 
 ![logo](logo.png)
 
+![GitHub all releases](https://img.shields.io/github/downloads/keijumies/WCST/total) ![GitHub last commit (by committer)](https://img.shields.io/github/last-commit/Keijumies/WCST) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Keijumies/WCST) ![GitHub language count](https://img.shields.io/github/languages/count/Keijumies/WCST)
+
+
+
+
+
+
 This project is a Python-based adaptation inspired by the Wisconsin Card Sorting Task (WCST). Utilizing PsychoPy, we have developed an psychological test that captures the essence of cognitive flexibility. Our version is designed to run locally on any computer. This project was inspired by the original paper by Esta Berg (1948). It was created for educational purposes as part of a university course at the Arctic University of Norway, UiT.
 
 ## Installation
