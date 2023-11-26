@@ -1,53 +1,47 @@
+# Wisconsin Card Sorting Task - Python Project
+
 ![logo](logo.png)
 
-INTRO
+This is a Python project to create a computer version of the Wisconsin Card Sorting Task, running with PsychoPy. The end product is a game that can be run locally on any computer.
 
-This is a Python project to create a computer version of the Wisconsin Card Sorting Task, that runs with Psychopy.
-In this project, we used the original paper (Esta Berg, 1948) as a source of inspiration.
-The purpose of this project is learning, as this project was done for a university course at the Artic University of Norway, UiT.
+**Sources**:
+- Esta A. Berg (1948) A Simple Objective Technique for Measuring Flexibility in Thinking, The Journal of General Psychology, 39:1, 15-22, DOI: 10.1080/00221309.1948.9918159
 
-The end product is a Wisconsin Card Sorting Task-type game that can be run locally on any computer.
+## DIRECTORIES
 
-Sources: 
-Esta A. Berg (1948) A Simple Objective Technique for Measuring Flexibility in Thinking, The Journal of General Psychology, 39:1, 15-22, DOI: 10.1080/00221309.1948.9918159
+### Psychopy
+In this directory, you'll find a PsychoPy version of the WCST.
 
-DIRECTORIES
+- **game**
+  - The game is stored as `WCST.py`. PsychoPy needs to be installed locally to play. [Download PsychoPy](https://www.psychopy.org/download.html)
+- **cards**
+  - Contains image files of the cards.
+- **sounds**
+  - Sound files used in the game. Sourced from [Zapsplat](https://www.zapsplat.com/)
+- **results**
+  - Results of the test are saved here after completion.
+- **logo**
+  - Logo for the game, generated with DALL-E 3.
 
-Psychopy
-In this directory, you will find a Psychopy version of the WCST.
+### Jupyter
+Documentation of the WCST creation for PsychoPy.
 
-  -game
-  The game is stored as WCST.py. You need to have PsychoPy installed locally to play, specifically the standalone version    	(https://www.psychopy.org/download.html). 
-  -cards
-  Here are the image files of the cards
-  -sounds
-  Here are the sound files that are used in the game
-  sounds sourced from: https://www.zapsplat.com/
-  -results
-  Here the results of the test will be saved after the completion
-  -logo
-  Here is the logo for the game: generated with dalle-3
-  
-Jupyter
-This is a directory where the creation of the WCST for Psychopy is documented.
+- **gamelogic**
+  - Basics of game logic. The final code has evolved significantly.
+- **imageCreation**
+  - Documentation on creating the card images.
+- **create_image_script**
+  - Final script to create the 64 card images.
+- **analysis**
+  - Data analysis script (OUT OF DATE).
+- **logger**
+  - Documentation on creating the logger (OUT OF DATE).
 
-- gamelogic
-  here I go through the basics of game logic. The code has changed much in the final file.
-- imageCreation
-  here I go through the creation of the card images
-- create_image_script
-  this is the final script to make the 64 card images
-- analysis
-  This is a data analysis script: OUT OF DATE
-- logger
-  this is some documentation on how to create the logger: OUT OF DATE
+### Script
+Find the independent game logic for the WCST as a Python script.
 
+- **GameLogic**
+  - Initial logic of the game.
 
-Script
-Here you will find the game logic for the WCST as a Python script.
-This is the logic of the game that works independently from PsychoPy
+This project was inspired by the original paper by Esta Berg (1948). It was created for educational purposes as part of a university course at the Arctic University of Norway, UiT.
 
--GameLogic
-This is the innitial logic of the game that.
-
--GameLogicV2
