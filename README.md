@@ -2,7 +2,7 @@
 
 ![logo](logo.png)
 
-This project is a Python-based adaptation inspired by the Wisconsin Card Sorting Task (WCST). Utilizing PsychoPy, we have developed an psychological test that captures the essence of cognitive flexibility our version is designed to run locally on any computer. This project was inspired by the original paper by Esta Berg (1948). It was created for educational purposes as part of a university course at the Arctic University of Norway, UiT.
+This project is a Python-based adaptation inspired by the Wisconsin Card Sorting Task (WCST). Utilizing PsychoPy, we have developed an psychological test that captures the essence of cognitive flexibility. Our version is designed to run locally on any computer. This project was inspired by the original paper by Esta Berg (1948). It was created for educational purposes as part of a university course at the Arctic University of Norway, UiT.
 
 ## Installation
 
@@ -53,6 +53,9 @@ Documentation of the WCST creation for PsychoPy.
 
 ### Script
 Find the independent game logic for the WCST as a Python script.
+
+### Exam
+Here are the docs, further elaboration on the process of making the test.
 
 - **GameLogic**
   - Initial logic of the game.
