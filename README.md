@@ -12,7 +12,7 @@ This project was inspired by the original paper by Esta Berg (1948). It was crea
    - Navigate to the GitHub repository page.
    - Click on the 'Code' button and select 'Download ZIP'
 
--**Install Psychopy**
+**Install Psychopy**
 PsychoPy needs to be installed locally to play. [Download PsychoPy](https://www.psychopy.org/download.html)
 
 ## DIRECTORIES
