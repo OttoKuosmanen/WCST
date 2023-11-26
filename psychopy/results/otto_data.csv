@@ -1,0 +1,25 @@
+card,chosen card,success,matched on categories,active rule,win streak
+"3,triangle,yellow","3,square,yellow",True,"['color', 'number']",color,1
+"2,circle,blue","2,star,green",False,['number'],color,0
+"3,square,red","1,triangle,red",True,['color'],color,1
+"1,circle,green","2,star,green",True,['color'],color,2
+"3,triangle,red","1,triangle,red",True,"['shape', 'color']",color,3
+"4,triangle,yellow","3,square,yellow",True,['color'],color,4
+"3,triangle,blue","4,circle,blue",True,['color'],color,5
+"4,square,blue","4,circle,blue",False,"['color', 'number']",shape,0
+"1,circle,blue","1,triangle,red",False,['number'],shape,0
+"3,star,green","2,star,green",True,"['shape', 'color']",shape,1
+"1,square,blue","3,square,yellow",True,['shape'],shape,2
+"4,star,blue","2,star,green",True,['shape'],shape,3
+"4,triangle,blue","1,triangle,red",True,['shape'],shape,4
+"1,triangle,blue","1,triangle,red",True,"['shape', 'number']",shape,5
+"4,triangle,green","1,triangle,red",False,['shape'],number,0
+"4,square,yellow","1,triangle,red",False,[],number,0
+"4,square,green","1,triangle,red",False,[],number,0
+"4,square,red","1,triangle,red",False,['color'],number,0
+"2,square,green","1,triangle,red",False,[],number,0
+"3,circle,blue","1,triangle,red",False,[],number,0
+"1,triangle,red","1,triangle,red",True,"['shape', 'color', 'number']",number,1
+"2,triangle,green","1,triangle,red",False,['shape'],number,0
+"4,circle,red","1,triangle,red",False,['color'],number,0
+"2,circle,yellow","1,triangle,red",False,[],number,0
