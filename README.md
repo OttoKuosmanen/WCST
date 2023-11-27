@@ -25,8 +25,9 @@ This project is a Python-based adaptation inspired by the Wisconsin Card Sorting
 
 3. **Run the Game**
    - After installing PsychoPy, open the PsychoPy Coder.
-   - In the PsychoPy Coder, open the `WCST.py` game script. This file is located in the `Psychopy` directory of the cloned repository.
+   - In the PsychoPy Coder, open the `WCST.py` game script. This file is located in GitHub repository folder `Psychopy` and there in the `game` folder.
    - Execute the script to start the game.
+![logo](img.png)
 
 
 ## Folder Overview
