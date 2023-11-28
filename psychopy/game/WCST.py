@@ -292,13 +292,13 @@ class DiscardStack(Stack):
 # FUNCTIONS
 
 
-def matched_category(rules,choice,card):
+def matched_category(rules,choice,card,stim_card):
     """" parameters: 
         a function that takes in, a list of matching categories 'aka' rules, and two card objects
         returns: a list of strings that contain the categories on which the cards are matched """
     matched = []
     for rule in rules:
-        if card.get_card_property(rule) == chosen_card.get_card_property(rule):
+        if card.get_card_property(rule) == stim_card.get_card_property(rule):
             matched.append(rule)
     return matched
     
@@ -571,7 +571,7 @@ while len(mainstack)>40:
         text.draw()
         
     # Logg results
-    match = matched_category(rules, choice, card)
+    match = matched_category(rules, choice, card, chosen_card)
     track(match,trial)
     track(active_rule,trial)
     track(win_streak,trial)

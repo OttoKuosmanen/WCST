@@ -2,9 +2,8 @@ import random
 import csv
 import os
 
-filename = "../results/data.csv"
-logger = []
 
+# Classes
 class Card:
     image_path = "/..jupyter/cards/"
 
@@ -124,7 +123,7 @@ class DiscardStack(Stack):
         # call self.stimcard.render() and place at ypos_stimcard
         # call self.list_of_cards[-1].render()
 
-
+# Functions
 def user_input():
     while True:
         try:
@@ -152,15 +151,16 @@ def save_results(data, filename):
         for row in data:
             writer.writerow(row)
 
+# Make stacks
 mainstack = MainStack()
 dstacks = {i:DiscardStack(i) for i in range(1,5)}
 
 # initialize
-
-deck_active = True
 rules = ["shape", "color", "number"]
 active_rule = random.choice(rules)
 win_streak=0
+filename = "../results/data.csv"
+logger = []
 
 # Game Loop
 while len(mainstack)>0:
