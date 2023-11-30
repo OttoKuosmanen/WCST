@@ -1,6 +1,6 @@
 # Wisconsin Type Card Sorting Task - Psychopy Edition
 
-![logo](logo.png)
+![logo](img/logo.png)
 
 ![GitHub all releases](https://img.shields.io/github/downloads/keijumies/WCST/total) ![GitHub last commit (by committer)](https://img.shields.io/github/last-commit/Keijumies/WCST) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Keijumies/WCST) ![GitHub language count](https://img.shields.io/github/languages/count/Keijumies/WCST) ![GitHub License](https://img.shields.io/github/license/Keijumies/WCST)
 
