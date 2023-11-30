@@ -9,8 +9,6 @@ import pandas as pd
 # OUTPUT
 results_destination = "../results/"   # Data storage. Excel friendly csv.
 filename = "BLANK"  # Participant_id
-
-index = ["card","chosen card", "success", "matched on categories", "active rule",  "win streak"]
 game_data = [] 
 
 
@@ -195,7 +193,7 @@ class MainStack(Stack):
     """
     
     xpos = 0
-    ypos = -200
+    ypos = -350
     numbers = [1,2,3,4]
     shapes = ["circle","square","triangle","star"]
     colors = ["blue","green","red","yellow"]
@@ -228,8 +226,8 @@ class DiscardStack(Stack):
     Additionally, it will draw a psychopy text object on top of the stimulus card, indicating keybord input for choosing that stimulus card.
     """
     
-    ypos_stimcard = 400
-    ypos_discard = 200
+    ypos_stimcard = 300
+    ypos_discard = 110
     
     stimdesign  = {
     'font': 'Arial',
@@ -291,6 +289,9 @@ class DiscardStack(Stack):
     
 # FUNCTIONS
 
+def track(data_point, trial):
+    trial.append(data_point)
+    return trial
 
 def matched_category(rules,choice,card,stim_card):
     """" parameters: 
@@ -321,22 +322,20 @@ def random_key(key_length):
 
     
     
-
 def save_results(data, results_destination, filename):
-    """A function that saves a datafile
-    Parameters: datafile, a folder path, a name for the file
-    """
-    full_path = os.path.join(results_destination, filename)
-    with open(full_path, 'w', newline='') as csvfile:
-        writer = csv.writer(csvfile)
-        for row in data:
-            writer.writerow(row)
-            
-            
-def track(data_point, trial):
-    trial.append(data_point)
-    return trial
-    
+    index = ["card", "chosen card", "success", "matched on categories", "active rule", "win streak"]
+    game_data_dicts = []
+
+    for trial_data in data:
+        trial_dict = {}
+        for i, field in enumerate(index):
+            trial_dict[field] = trial_data[i]
+        game_data_dicts.append(trial_dict)
+
+    df = pd.DataFrame(game_data_dicts)
+    output_filename = f"{filename}_data.csv"
+    df.to_csv(os.path.join(results_destination, output_filename), index=False)
+
     
 
 def results(data):
@@ -358,35 +357,17 @@ def results(data):
     active_rule = [item[4] for item in data]
     matched_categories = [item[3] for item in data]
     
-    for index, (win, rule, matched, streak) in enumerate(zip(win_list, active_rule, matched_categories, win_streak)):  # Figure out how to calculate this
+    for index, (win, rule, matched, streak) in enumerate(zip(win_list, active_rule, matched_categories, win_streak)):
         print(index)
         if streak == 5:
             holder = rule
         if win == False and holder in matched:
-            print(f"There was a preservative error at trial:{index + 1}")
             preservative_error += 1
     
     
     
     return procent_correct, completed_categories, preservative_error
     
-
-
-
-
-# initialize
-rules = ["shape", "color", "number"]
-win_streak=0
-
-# Window settings
-window = visual.Window([1800,1200], monitor="testMonitor", units="pix")
-Card.set_window(window) # Pass in the window for the card class
-
-# Create stacks of cards
-mainstack = MainStack()
-dstacks = {i:DiscardStack(i) for i in range(1,5)}
-
-
 # TEXTS
 
 intro = {
@@ -396,7 +377,7 @@ intro = {
     'color': 'white',
     'bold': True,
     'italic': False,
-    'pos': (0, -100)
+    'pos': (0, -250)
 }
 
 instruct = {
@@ -416,7 +397,7 @@ success = {
     'color': 'green',
     'bold': True,
     'italic': False,
-    'pos': (0, 0)
+    'pos': (0, -100)
 }
 
 fail = {
@@ -426,31 +407,43 @@ fail = {
     'color': 'red',
     'bold': True,
     'italic': False,
-    'pos': (0, 0)
+    'pos': (0, -50)
 }
 
+
+# GAME_SETUP
+
+# Window settings
+window = visual.Window([1600,900 ], monitor="testMonitor", units="pix")
+Card.set_window(window) # Pass in the window for the card class
+
+# Create stacks of cards
+mainstack = MainStack()
+dstacks = {i:DiscardStack(i) for i in range(1,5)}
+
+# initialize
+rules = ["shape", "color", "number"]
+active_rule = random.choice(rules)
+win_streak=0
 text_input = visual.TextBox2(win=window, text='Write your username: ')
 
 #SOUNDS
-# Create a sound object from an audio file
-#sound_file = "sounds/win.wav"
-#win_music = sound.Sound(sound_file)
-#sound.init()
+ #Create a sound object from an audio file
+sound_file = "../sounds/win.wav"
+win_music = sound.Sound(sound_file)
+sound.init()
 
 #LOGO
-logo = visual.ImageStim(window,image="../logo/logo.png",pos=(0,300),size=(400,400))
+logo = visual.ImageStim(window,image="../logo/logo.png",pos=(0,300),size=(300,300))
 
 # GAME
-
-# set active rule
-active_rule = random.choice(rules)
 
 
 # Start screen
 intro_txt = visual.TextStim(window, **intro)
 start_key = "space"
 end_key = "escape"
-"""
+
 while True:
     logo.draw()
     intro_txt.draw()
@@ -464,7 +457,7 @@ while True:
     elif end_key in keys:
         window.close()
         core.quit()
-"""
+
 
 
 # user_name
@@ -512,8 +505,9 @@ while True:
         break
         
 mouse = event.Mouse()
+
 #Main loop
-while len(mainstack)>40:
+while len(mainstack):
     
     trial = [] # initialize a trial data list
 
@@ -560,8 +554,8 @@ while len(mainstack)>40:
     track(correct,trial)
     
     if correct:
-        #win_music.stop()
-        #win_music.play()
+        win_music.stop()
+        win_music.play()
         win_streak += 1 
         text = visual.TextStim(window, **success)
         text.draw()
@@ -582,7 +576,7 @@ while len(mainstack)>40:
     
     game_data.append(trial)
 
-# results
+# quick data analysis for end screen
 
 p, c, e = results(game_data)
 pro = int(p)
@@ -592,27 +586,12 @@ window.flip(clearBuffer=True)
 results = visual.TextStim(window, f"You got a total of {pro}% correct  \n You completed a total of {c} categories \n Preservative errors: {e}") # show some score data at the end of the game.
 results.draw()
 window.flip()
-core.wait(3)
+core.wait(8)
 
+# Save data in results folder
+save_results(game_data, results_destination, filename)    
 
-# save data
-game_data_dicts = []
-
-for trial_data in game_data:
-    trial_dict = {}
-    
-    for i, field in enumerate(index):
-        trial_dict[field] = trial_data[i]
-    
-    game_data_dicts.append(trial_dict)
-
-df = pd.DataFrame(game_data_dicts)
-
-output_filename = f"{filename}_data.csv"
-df.to_csv(os.path.join(results_destination, output_filename), index=False)
 
 # close the window
 window.close()
-
-# clean up at the end of the experiment.
 core.quit()

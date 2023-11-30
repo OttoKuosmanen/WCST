@@ -1,5 +1,0 @@
-card,chosen card,success,matched on categories,active rule,win streak
-"2,triangle,red","1,triangle,red",False,"['shape', 'color']",number,0
-"1,circle,green","2,star,green",False,['color'],number,0
-"1,star,blue","1,triangle,red",True,['number'],number,1
-"3,star,yellow","2,star,green",False,['shape'],number,0
