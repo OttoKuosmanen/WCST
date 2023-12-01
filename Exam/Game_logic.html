@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Untitled</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Game_logic</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -14582,6 +14582,12 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h1 id="Aim">Aim<a class="anchor-link" href="#Aim">&#182;</a></h1><p>This document is for the examiner of this course.</p>
 <p>In here i will explain what i have done and how I have done it.</p>
+<p>There are 3 documents that will compose the whole process of creating the psychological test.</p>
+<ol>
+<li>Game_logic</li>
+<li>Cards</li>
+<li>Psychopy</li>
+</ol>
 <h2 id="What-I-have-done:">What I have done:<a class="anchor-link" href="#What-I-have-done:">&#182;</a></h2><p>I have done a computer version of the Wisconsin Card Sorting Task (WCST).</p>
 <p>The WCST is a psychological test for cognitive flexibility, its commonly used in clinical practice.</p>
 <p>In essence its a simple card game. You have a deck of 64 cards, and on the screen is 4 cards(stimulus cards). You then pull one card from the deck and have to group it with one of 4 stimulus cards. Each card has a color,shape and number.</p>
@@ -14597,7 +14603,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><img src="../example.png" alt="exe" title="exe" width="500" height="500"/></p>
+<p><img src="../img/example.png" alt="exe" title="exe" width="500" height="500"/></p>
 
 </div>
 </div>
@@ -14621,7 +14627,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><img src="../exe2.png" alt="exe2" title="exe2" width="500" height="500"/></p>
+<p><img src="../img/exe2.png" alt="exe2" title="exe2" width="500" height="500"/></p>
 
 </div>
 </div>
@@ -14681,7 +14687,7 @@ A version of the game that run with text only but had the mechanics needed for i
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Overview-of-core-components">Overview of core components<a class="anchor-link" href="#Overview-of-core-components">&#182;</a></h1><ol>
+<h1 id="Overview-of-components">Overview of components<a class="anchor-link" href="#Overview-of-components">&#182;</a></h1><ol>
 <li><p>Classes</p>
 <ol>
 <li>Card Class</li>
@@ -14700,6 +14706,7 @@ A version of the game that run with text only but had the mechanics needed for i
 </ol>
 </li>
 <li>Game<ol>
+<li>Imports</li>
 <li>Create decks</li>
 <li>Initilize</li>
 <li>Game_loop</li>
@@ -14727,7 +14734,7 @@ A version of the game that run with text only but had the mechanics needed for i
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[18]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Card</span><span class="p">:</span>
@@ -14780,7 +14787,7 @@ A version of the game that run with text only but had the mechanics needed for i
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[19]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Stack</span><span class="p">():</span>
@@ -14838,7 +14845,7 @@ A version of the game that run with text only but had the mechanics needed for i
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[20]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">MainStack</span><span class="p">(</span><span class="n">Stack</span><span class="p">):</span>
@@ -14899,7 +14906,7 @@ A version of the game that run with text only but had the mechanics needed for i
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[21]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">DiscardStack</span><span class="p">(</span><span class="n">Stack</span><span class="p">):</span>
@@ -14972,7 +14979,7 @@ A version of the game that run with text only but had the mechanics needed for i
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[22]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">user_input</span><span class="p">():</span>
@@ -15021,7 +15028,7 @@ The choice is registered by typing in 1,2,3 or 4. Only theese answers will alow 
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[23]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">matched_category</span><span class="p">(</span><span class="n">rules</span><span class="p">,</span><span class="n">choice</span><span class="p">,</span> <span class="n">a_card</span><span class="p">,</span><span class="n">stim_card</span><span class="p">):</span>
@@ -15072,7 +15079,7 @@ The choice is registered by typing in 1,2,3 or 4. Only theese answers will alow 
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[24]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">save_results</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
@@ -15107,7 +15114,48 @@ The choice is registered by typing in 1,2,3 or 4. Only theese answers will alow 
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Game">Game<a class="anchor-link" href="#Game">&#182;</a></h1><h2 id="Create-decks">Create decks<a class="anchor-link" href="#Create-decks">&#182;</a></h2>
+<h1 id="Game">Game<a class="anchor-link" href="#Game">&#182;</a></h1><h2 id="Imports">Imports<a class="anchor-link" href="#Imports">&#182;</a></h2>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">csv</span>
+<span class="kn">import</span> <span class="nn">os</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Here are some basic libraries that are used in the code.</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Create-decks">Create decks<a class="anchor-link" href="#Create-decks">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -15123,12 +15171,12 @@ The choice is registered by typing in 1,2,3 or 4. Only theese answers will alow 
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[25]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">mainstack</span> <span class="o">=</span> <span class="n">MainStack</span><span class="p">()</span>
@@ -15138,40 +15186,6 @@ The choice is registered by typing in 1,2,3 or 4. Only theese answers will alow 
      </div>
 </div>
 </div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>
-<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
-<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
-Cell <span class="ansi-green-intense-fg ansi-bold">In[25], line 1</span>
-<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span> mainstack <span style="color: rgb(98,98,98)">=</span> MainStack()
-<span class="ansi-green-fg">      2</span> dstacks <span style="color: rgb(98,98,98)">=</span> {i:DiscardStack(i) <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> i <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> <span style="color: rgb(0,135,0)">range</span>(<span style="color: rgb(98,98,98)">1</span>,<span style="color: rgb(98,98,98)">5</span>)}
-
-Cell <span class="ansi-green-intense-fg ansi-bold">In[20], line 16</span>, in <span class="ansi-cyan-fg">MainStack.__init__</span><span class="ansi-blue-intense-fg ansi-bold">(self)</span>
-<span class="ansi-green-fg">     14</span>             card <span style="color: rgb(98,98,98)">=</span> Card(i,y,x)
-<span class="ansi-green-fg">     15</span>             <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>list_of_cards<span style="color: rgb(98,98,98)">.</span>append(card)
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 16</span> random<span style="color: rgb(98,98,98)">.</span>shuffle(<span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>list_of_cards)
-
-<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;random&#39; is not defined</pre>
-</div>
-</div>
-
-</div>
-
 </div>
 
 </div>
@@ -15193,7 +15207,7 @@ Cell <span class="ansi-green-intense-fg ansi-bold">In[20], line 16</span>, in <s
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span>    <span class="c1">### CODE INSIDE MAINSTACK CLASS ##############</span>
@@ -15249,7 +15263,7 @@ Cell <span class="ansi-green-intense-fg ansi-bold">In[20], line 16</span>, in <s
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># initialize</span>
@@ -15306,7 +15320,7 @@ We specify the filename and path where we want the game data to be stored.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -15337,6 +15351,297 @@ We specify the filename and path where we want the game data to be stored.</p>
 </div>
 </div>
 
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Main Stack: Card(4,triangle,blue)
+Stimulus: Card(1,triangle,red), Last card: &lt;empty&gt;
+Stimulus: Card(2,star,green), Last card: &lt;empty&gt;
+Stimulus: Card(3,square,yellow), Last card: &lt;empty&gt;
+Stimulus: Card(4,circle,blue), Last card: &lt;empty&gt;
+Type 1, 2, 3, or 4 to choose where to group your card: 1
+False
+Main Stack: Card(3,circle,red)
+Stimulus: Card(1,triangle,red), Last card: Card(4,triangle,blue)
+Stimulus: Card(2,star,green), Last card: &lt;empty&gt;
+Stimulus: Card(3,square,yellow), Last card: &lt;empty&gt;
+Stimulus: Card(4,circle,blue), Last card: &lt;empty&gt;
+Type 1, 2, 3, or 4 to choose where to group your card: 2
+False
+Main Stack: Card(4,star,green)
+Stimulus: Card(1,triangle,red), Last card: Card(4,triangle,blue)
+Stimulus: Card(2,star,green), Last card: Card(3,circle,red)
+Stimulus: Card(3,square,yellow), Last card: &lt;empty&gt;
+Stimulus: Card(4,circle,blue), Last card: &lt;empty&gt;
+Type 1, 2, 3, or 4 to choose where to group your card: 3
+False
+Main Stack: Card(4,star,red)
+Stimulus: Card(1,triangle,red), Last card: Card(4,triangle,blue)
+Stimulus: Card(2,star,green), Last card: Card(3,circle,red)
+Stimulus: Card(3,square,yellow), Last card: Card(4,star,green)
+Stimulus: Card(4,circle,blue), Last card: &lt;empty&gt;
+Type 1, 2, 3, or 4 to choose where to group your card: 4
+False
+Main Stack: Card(4,star,yellow)
+Stimulus: Card(1,triangle,red), Last card: Card(4,triangle,blue)
+Stimulus: Card(2,star,green), Last card: Card(3,circle,red)
+Stimulus: Card(3,square,yellow), Last card: Card(4,star,green)
+Stimulus: Card(4,circle,blue), Last card: Card(4,star,red)
+Type 1, 2, 3, or 4 to choose where to group your card: 1
+False
+Main Stack: Card(3,triangle,red)
+Stimulus: Card(1,triangle,red), Last card: Card(4,star,yellow)
+Stimulus: Card(2,star,green), Last card: Card(3,circle,red)
+Stimulus: Card(3,square,yellow), Last card: Card(4,star,green)
+Stimulus: Card(4,circle,blue), Last card: Card(4,star,red)
+Type 1, 2, 3, or 4 to choose where to group your card: 2
+False
+Main Stack: Card(1,circle,yellow)
+Stimulus: Card(1,triangle,red), Last card: Card(4,star,yellow)
+Stimulus: Card(2,star,green), Last card: Card(3,triangle,red)
+Stimulus: Card(3,square,yellow), Last card: Card(4,star,green)
+Stimulus: Card(4,circle,blue), Last card: Card(4,star,red)
+Type 1, 2, 3, or 4 to choose where to group your card: 3
+True
+Main Stack: Card(4,circle,yellow)
+Stimulus: Card(1,triangle,red), Last card: Card(4,star,yellow)
+Stimulus: Card(2,star,green), Last card: Card(3,triangle,red)
+Stimulus: Card(3,square,yellow), Last card: Card(1,circle,yellow)
+Stimulus: Card(4,circle,blue), Last card: Card(4,star,red)
+Type 1, 2, 3, or 4 to choose where to group your card: 4
+False
+Main Stack: Card(3,square,yellow)
+Stimulus: Card(1,triangle,red), Last card: Card(4,star,yellow)
+Stimulus: Card(2,star,green), Last card: Card(3,triangle,red)
+Stimulus: Card(3,square,yellow), Last card: Card(1,circle,yellow)
+Stimulus: Card(4,circle,blue), Last card: Card(4,circle,yellow)
+Type 1, 2, 3, or 4 to choose where to group your card: 1
+False
+Main Stack: Card(2,triangle,green)
+Stimulus: Card(1,triangle,red), Last card: Card(3,square,yellow)
+Stimulus: Card(2,star,green), Last card: Card(3,triangle,red)
+Stimulus: Card(3,square,yellow), Last card: Card(1,circle,yellow)
+Stimulus: Card(4,circle,blue), Last card: Card(4,circle,yellow)
+Type 1, 2, 3, or 4 to choose where to group your card: 2
+True
+Main Stack: Card(2,square,red)
+Stimulus: Card(1,triangle,red), Last card: Card(3,square,yellow)
+Stimulus: Card(2,star,green), Last card: Card(2,triangle,green)
+Stimulus: Card(3,square,yellow), Last card: Card(1,circle,yellow)
+Stimulus: Card(4,circle,blue), Last card: Card(4,circle,yellow)
+Type 1, 2, 3, or 4 to choose where to group your card: 3
+False
+Main Stack: Card(3,triangle,blue)
+Stimulus: Card(1,triangle,red), Last card: Card(3,square,yellow)
+Stimulus: Card(2,star,green), Last card: Card(2,triangle,green)
+Stimulus: Card(3,square,yellow), Last card: Card(2,square,red)
+Stimulus: Card(4,circle,blue), Last card: Card(4,circle,yellow)
+Type 1, 2, 3, or 4 to choose where to group your card: 2
+False
+Main Stack: Card(3,square,green)
+Stimulus: Card(1,triangle,red), Last card: Card(3,square,yellow)
+Stimulus: Card(2,star,green), Last card: Card(3,triangle,blue)
+Stimulus: Card(3,square,yellow), Last card: Card(2,square,red)
+Stimulus: Card(4,circle,blue), Last card: Card(4,circle,yellow)
+Type 1, 2, 3, or 4 to choose where to group your card: 2
+True
+Main Stack: Card(2,triangle,red)
+Stimulus: Card(1,triangle,red), Last card: Card(3,square,yellow)
+Stimulus: Card(2,star,green), Last card: Card(3,square,green)
+Stimulus: Card(3,square,yellow), Last card: Card(2,square,red)
+Stimulus: Card(4,circle,blue), Last card: Card(4,circle,yellow)
+Type 1, 2, 3, or 4 to choose where to group your card: 1
+True
+Main Stack: Card(2,circle,blue)
+Stimulus: Card(1,triangle,red), Last card: Card(2,triangle,red)
+Stimulus: Card(2,star,green), Last card: Card(3,square,green)
+Stimulus: Card(3,square,yellow), Last card: Card(2,square,red)
+Stimulus: Card(4,circle,blue), Last card: Card(4,circle,yellow)
+Type 1, 2, 3, or 4 to choose where to group your card: 2
+False
+Main Stack: Card(2,star,yellow)
+Stimulus: Card(1,triangle,red), Last card: Card(2,triangle,red)
+Stimulus: Card(2,star,green), Last card: Card(2,circle,blue)
+Stimulus: Card(3,square,yellow), Last card: Card(2,square,red)
+Stimulus: Card(4,circle,blue), Last card: Card(4,circle,yellow)
+Type 1, 2, 3, or 4 to choose where to group your card: 2
+False
+Main Stack: Card(1,circle,green)
+Stimulus: Card(1,triangle,red), Last card: Card(2,triangle,red)
+Stimulus: Card(2,star,green), Last card: Card(2,star,yellow)
+Stimulus: Card(3,square,yellow), Last card: Card(2,square,red)
+Stimulus: Card(4,circle,blue), Last card: Card(4,circle,yellow)
+Type 1, 2, 3, or 4 to choose where to group your card: 3
+False
+Main Stack: Card(1,triangle,yellow)
+Stimulus: Card(1,triangle,red), Last card: Card(2,triangle,red)
+Stimulus: Card(2,star,green), Last card: Card(2,star,yellow)
+Stimulus: Card(3,square,yellow), Last card: Card(1,circle,green)
+Stimulus: Card(4,circle,blue), Last card: Card(4,circle,yellow)
+Type 1, 2, 3, or 4 to choose where to group your card: 3
+True
+Main Stack: Card(1,square,blue)
+Stimulus: Card(1,triangle,red), Last card: Card(2,triangle,red)
+Stimulus: Card(2,star,green), Last card: Card(2,star,yellow)
+Stimulus: Card(3,square,yellow), Last card: Card(1,triangle,yellow)
+Stimulus: Card(4,circle,blue), Last card: Card(4,circle,yellow)
+Type 1, 2, 3, or 4 to choose where to group your card: 3
+False
+Main Stack: Card(1,square,yellow)
+Stimulus: Card(1,triangle,red), Last card: Card(2,triangle,red)
+Stimulus: Card(2,star,green), Last card: Card(2,star,yellow)
+Stimulus: Card(3,square,yellow), Last card: Card(1,square,blue)
+Stimulus: Card(4,circle,blue), Last card: Card(4,circle,yellow)
+Type 1, 2, 3, or 4 to choose where to group your card: 5
+Please enter a valid choice (1, 2, 3, or 4).
+Type 1, 2, 3, or 4 to choose where to group your card: 5
+Please enter a valid choice (1, 2, 3, or 4).
+Type 1, 2, 3, or 4 to choose where to group your card: 5
+Please enter a valid choice (1, 2, 3, or 4).
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Here is the continuation of the game loop</p>
+<p>It does 3 simple things after the core of the loop has been passed.</p>
+<ol>
+<li>The game will update the global winstreak variable.</li>
+<li>The results of the trial are passed into the logg variable</li>
+<li>The active rule is changed if the win streak is over 5.</li>
+</ol>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span>    
+    <span class="c1"># Update winstreak</span>
+    <span class="k">if</span> <span class="n">correct</span><span class="p">:</span>
+        <span class="n">win_streak</span> <span class="o">+=</span> <span class="mi">1</span>    
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">win_streak</span> <span class="o">=</span> <span class="mi">0</span>
+        
+    <span class="c1"># Logg results</span>
+    <span class="n">match</span> <span class="o">=</span> <span class="n">matched_category</span><span class="p">(</span><span class="n">rules</span><span class="p">,</span> <span class="n">choice</span><span class="p">,</span> <span class="n">card</span><span class="p">)</span>
+    <span class="n">trial</span> <span class="o">=</span> <span class="p">[</span><span class="n">active_rule</span><span class="p">,</span> <span class="n">match</span><span class="p">]</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">trial</span><span class="p">)</span>    
+    
+    <span class="c1"># Change rule if streak is more than 5   </span>
+    <span class="k">if</span> <span class="n">win_streak</span> <span class="o">&gt;=</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="n">active_rule</span><span class="o">=</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">rules</span><span class="p">)</span><span class="o">.</span><span class="n">difference</span><span class="p">([</span><span class="n">active_rule</span><span class="p">])))</span>
+        <span class="n">win_streak</span> <span class="o">=</span> <span class="mi">0</span>     
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>In the end this is how the complete loop looks like.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Game Loop</span>
+<span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">mainstack</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+    <span class="c1"># render current stacks</span>
+    <span class="n">mainstack</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">stack</span> <span class="ow">in</span> <span class="n">dstacks</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">stack</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
+        
+    <span class="c1"># take card from main stack</span>
+    <span class="n">card</span> <span class="o">=</span> <span class="n">mainstack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+    <span class="c1"># let user choose one of the cards</span>
+    <span class="n">choice</span> <span class="o">=</span> <span class="n">user_input</span><span class="p">()</span>
+    <span class="n">chosen_card</span><span class="o">=</span><span class="n">dstacks</span><span class="p">[</span><span class="n">choice</span><span class="p">]</span><span class="o">.</span><span class="n">stimulus_card</span>
+    <span class="n">dstacks</span><span class="p">[</span><span class="n">choice</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">card</span><span class="p">)</span>
+    
+    <span class="c1"># assess correctness</span>
+    <span class="n">correct</span> <span class="o">=</span> <span class="n">card</span><span class="o">.</span><span class="n">get_card_property</span><span class="p">(</span><span class="n">active_rule</span><span class="p">)</span><span class="o">==</span><span class="n">chosen_card</span><span class="o">.</span><span class="n">get_card_property</span><span class="p">(</span><span class="n">active_rule</span><span class="p">)</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="n">correct</span><span class="p">)</span>
+    
+    <span class="c1"># Update winstreak</span>
+    <span class="k">if</span> <span class="n">correct</span><span class="p">:</span>
+        <span class="n">win_streak</span> <span class="o">+=</span> <span class="mi">1</span>    
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">win_streak</span> <span class="o">=</span> <span class="mi">0</span>
+        
+    <span class="c1"># Logg results</span>
+    <span class="n">match</span> <span class="o">=</span> <span class="n">matched_category</span><span class="p">(</span><span class="n">rules</span><span class="p">,</span> <span class="n">choice</span><span class="p">,</span> <span class="n">card</span><span class="p">)</span>
+    <span class="n">trial</span> <span class="o">=</span> <span class="p">[</span><span class="n">active_rule</span><span class="p">,</span> <span class="n">match</span><span class="p">]</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">trial</span><span class="p">)</span>    
+    
+    <span class="c1"># Change rule if streak is more than 5   </span>
+    <span class="k">if</span> <span class="n">win_streak</span> <span class="o">&gt;=</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="n">active_rule</span><span class="o">=</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">rules</span><span class="p">)</span><span class="o">.</span><span class="n">difference</span><span class="p">([</span><span class="n">active_rule</span><span class="p">])))</span>
+        <span class="n">win_streak</span> <span class="o">=</span> <span class="mi">0</span>
+        
+<span class="c1">#save_results(logger,filename)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>This is all there is to it, in this basic version of the game.</p>
+<p>One thing to note is that when the loop is finished. The results are saved in the predefined folder. Its commented out now so that testing wont create any new files on your computer.</p>
+
+</div>
+</div>
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -15353,17 +15658,6 @@ We specify the filename and path where we want the game data to be stored.</p>
 </div>
 </div>
 
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-
-</div>
-</div>
-</div>
 </div>
 </body>
 

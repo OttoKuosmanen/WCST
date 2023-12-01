@@ -461,7 +461,6 @@ while True:
 
 
 # user_name
-
 username = []
 valid_characters = set('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789')
 
@@ -576,8 +575,7 @@ while len(mainstack):
     
     game_data.append(trial)
 
-# quick data analysis for end screen
-
+# Data analysis for end screen
 p, c, e = results(game_data)
 pro = int(p)
 
