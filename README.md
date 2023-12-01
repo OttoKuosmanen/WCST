@@ -30,7 +30,7 @@ This project is a Python-based adaptation inspired by the Wisconsin Card Sorting
 
 
 
-## Folder Overview
+## Folder Overview of WCST
 
 ### Psychopy
 In this directory, you'll find a PsychoPy version of the WCST.
@@ -46,28 +46,30 @@ In this directory, you'll find a PsychoPy version of the WCST.
 - **logo**
   - Logo for the game, generated with DALL-E 3.
 
-### Jupyter
-Documentation of the WCST creation for PsychoPy.
+### Exam
+Documentation of the WCST creation. In chronological order (PDF + Jupyter notebook file).
 
-- **gamelogic**
+- **game_logic**
   - Basics of game logic. The final code has evolved significantly.
+    
 - **imageCreation**
   - Documentation on creating the card images.
-- **create_image_script**
-  - Final script to create the 64 card images.
-- **analysis**
-  - Data analysis script (OUT OF DATE).
-- **logger**
-  - Documentation on creating the logger (OUT OF DATE).
+
+- **PsychoPy**
+  - Documentation on creating the card images.
+    
 
 ### Script
-Find the independent game logic for the WCST as a Python script.
 
-### Exam
-Here are the docs, further elaboration on the process of making the test.
-
-- **GameLogic**
-  - Initial logic of the game.
+- **GameLogic_V0.3**
+  - Basics of game logic. Initial stage.
+ 
+- **GameLogic_V0.5**
+  - Basics of game logic. Newest Text based version.
+    
+- **create_images_script**
+  - Script that creates all 64 card images to: FOLDER cards.
+    
 
 **Sources**:
 - Esta A. Berg (1948) A Simple Objective Technique for Measuring Flexibility in Thinking, The Journal of General Psychology, 39:1, 15-22, DOI: 10.1080/00221309.1948.9918159
