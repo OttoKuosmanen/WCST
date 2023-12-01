@@ -47,7 +47,7 @@ In this directory, you'll find a PsychoPy version of the WCST.
   - Logo for the game, generated with DALL-E 3.
 
 ### Exam
-Documentation of the WCST creation. In chronological order (PDF + Jupyter notebook file).
+Documentation of the WCST creation. In chronological order (PDF + Jupyter notebook file + html file).
 
 - **game_logic**
   - Basics of game logic. The final code has evolved significantly.
