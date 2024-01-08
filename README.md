@@ -56,7 +56,7 @@ Documentation of the WCST creation. In chronological order (PDF + Jupyter notebo
   - Documentation on creating the card images.
 
 - **PsychoPy**
-  - Documentation on creating the card images.
+  - Documentation on creating the visual version of the game.
     
 
 ### Script
