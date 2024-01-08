@@ -50,7 +50,7 @@ In this directory, you'll find a PsychoPy version of the WCST.
 Documentation of the WCST creation. In chronological order (PDF + Jupyter notebook file + html file).
 
 - **game_logic**
-  - Basics of game logic. The final code has evolved significantly.
+  - Basics of game logic.
     
 - **imageCreation**
   - Documentation on creating the card images.
